@@ -661,3 +661,436 @@
     display: inline;
   }
 }
+
+/* =========================================================
+   MOBILE WRAPPED — LIFETIME SAVING
+   ========================================================= */
+
+@media (max-width: 700px) {
+  .heist-shell {
+    min-height: 100svh;
+
+    padding:
+      1rem
+      1.1rem
+      calc(
+        1rem +
+        env(
+          safe-area-inset-bottom
+        )
+      );
+
+    background: #00539f;
+    color: white;
+  }
+
+  /* -----------------------
+     HEADER
+  ----------------------- */
+
+  .heist-header {
+    width: 100%;
+
+    margin:
+      0 0 1.1rem;
+
+    grid-template-columns:
+      auto 1fr;
+
+    gap: 1rem;
+
+    align-items: center;
+  }
+
+  .heist-heading {
+    text-align: right;
+  }
+
+  .heist-heading h1 {
+    color: white;
+
+    font-size:
+      clamp(
+        1.9rem,
+        8vw,
+        2.5rem
+      );
+
+    line-height: 0.95;
+
+    letter-spacing:
+      -0.055em;
+  }
+
+  .heist-back {
+    color:
+      rgba(
+        255,
+        255,
+        255,
+        0.82
+      );
+
+    font-size: 0.9rem;
+  }
+
+  .heist-back:hover {
+    color: white;
+  }
+
+  .heist-header
+  .heist-eyebrow {
+    margin-bottom: 0.25rem;
+
+    color: #ffd900;
+
+    font-size: 0.65rem;
+    font-weight: 900;
+
+    letter-spacing:
+      0.15em;
+  }
+
+  /* -----------------------
+     STRIP DESKTOP INTRO
+  ----------------------- */
+
+  .heist-hero {
+    width: 100%;
+
+    margin: 0;
+
+    text-align: left;
+  }
+
+  .heist-hero >
+  .heist-eyebrow,
+  .heist-intro {
+    display: none;
+  }
+
+  /* -----------------------
+     LIFETIME STORY
+  ----------------------- */
+
+  .heist-lifetime-hero {
+    padding: 0;
+
+    border-radius: 0;
+
+    background:
+      transparent;
+
+    color: white;
+  }
+
+  .heist-lifetime-top {
+    margin-bottom: 0.85rem;
+
+    display: flex;
+
+    flex-direction:
+      column;
+
+    align-items:
+      stretch;
+
+    gap: 0.8rem;
+  }
+
+  .heist-lifetime-count {
+    order: -1;
+
+    padding: 0;
+
+    display: flex;
+
+    align-items:
+      baseline;
+
+    gap: 0.45rem;
+
+    text-align: left;
+  }
+
+  .heist-lifetime-count strong {
+    display: inline;
+
+    color: white;
+
+    font-size: 1.5rem;
+
+    line-height: 1;
+
+    letter-spacing:
+      -0.04em;
+  }
+
+  .heist-lifetime-count span {
+    display: inline;
+
+    margin: 0;
+
+    color:
+      rgba(
+        255,
+        255,
+        255,
+        0.74
+      );
+
+    font-size: 0.82rem;
+    font-weight: 800;
+
+    opacity: 1;
+  }
+
+  /* -----------------------
+     MAIN CRIMSON REVEAL
+  ----------------------- */
+
+  .heist-lifetime-top >
+  div:first-child {
+    min-height: 170px;
+
+    padding:
+      1.35rem
+      1.25rem;
+
+    display: flex;
+
+    flex-direction:
+      column;
+
+    justify-content:
+      center;
+
+    border-radius: 26px;
+
+    background: #ee1c2e;
+    color: white;
+
+    text-align: center;
+  }
+
+  .heist-lifetime-top
+  .heist-winner-label {
+    margin-bottom: 0.55rem;
+
+    color:
+      rgba(
+        255,
+        255,
+        255,
+        0.78
+      );
+
+    font-size: 0.76rem;
+    font-weight: 900;
+
+    letter-spacing:
+      0.15em;
+
+    opacity: 1;
+  }
+
+  .heist-lifetime-saving {
+    color: white;
+
+    font-size:
+      clamp(
+        3.4rem,
+        15vw,
+        4.8rem
+      );
+
+    line-height: 0.88;
+
+    letter-spacing:
+      -0.07em;
+
+    white-space: nowrap;
+  }
+
+  /* -----------------------
+     FIRST ROW OF STICKERS
+  ----------------------- */
+
+  .heist-lifetime-equation {
+    display: grid;
+
+    grid-template-columns:
+      repeat(
+        2,
+        minmax(0, 1fr)
+      );
+
+    gap: 0.75rem;
+  }
+
+  .heist-lifetime-figure {
+    min-height: 105px;
+
+    padding:
+      0.9rem
+      0.65rem;
+
+    display: flex;
+
+    flex-direction:
+      column;
+
+    justify-content:
+      center;
+
+    border-radius: 20px;
+
+    background: #ffd900;
+    color: #111;
+
+    text-align: center;
+  }
+
+  .heist-lifetime-figure span {
+    margin-bottom: 0.35rem;
+
+    color:
+      rgba(
+        0,
+        0,
+        0,
+        0.58
+      );
+
+    font-size: 0.68rem;
+    font-weight: 900;
+
+    line-height: 1.2;
+
+    opacity: 1;
+  }
+
+  .heist-lifetime-figure strong {
+    color: #111;
+
+    font-size:
+      clamp(
+        1.55rem,
+        7vw,
+        2rem
+      );
+
+    line-height: 1;
+
+    letter-spacing:
+      -0.05em;
+  }
+
+  /*
+   * Hide the desktop equation
+   * operators and duplicate result.
+   *
+   * This comes AFTER the generic
+   * figure rule so it stays hidden.
+   */
+  .heist-lifetime-operator,
+  .heist-lifetime-figure-featured {
+    display: none;
+  }
+
+/* -----------------------
+   SECOND ROW OF STICKERS
+----------------------- */
+
+.heist-lifetime-metrics {
+  margin-top: 0.75rem;
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(
+      2,
+      minmax(0, 1fr)
+    );
+
+  gap: 0.75rem;
+}
+
+.heist-metric {
+  min-height: 105px;
+
+  padding:
+    0.9rem
+    0.65rem;
+
+  display: flex;
+
+  flex-direction: column;
+
+  justify-content: center;
+
+  border-radius: 20px;
+
+  background: #ffd900;
+  color: #111;
+
+  text-align: center;
+}
+
+.heist-metric span {
+  order: -1;
+
+  margin:
+    0 0 0.35rem;
+
+  color:
+    rgba(
+      0,
+      0,
+      0,
+      0.58
+    );
+
+  font-size: 0.68rem;
+  font-weight: 900;
+
+  line-height: 1.2;
+}
+
+.heist-metric strong {
+  color: #111;
+
+  font-size:
+    clamp(
+      1.55rem,
+      7vw,
+      2rem
+    );
+
+  line-height: 1;
+
+  letter-spacing:
+    -0.05em;
+}
+
+/*
+ * Keep:
+ * 1. Average Shelf Value
+ * 2. Average Saving
+ *
+ * Drop the £2.33-per-£1 stat
+ * on mobile Wrapped.
+ */
+.heist-metric:nth-child(3) {
+  display: none;
+}
+
+  /* -----------------------
+     FUTURE WRAPPED SCREENS
+  ----------------------- */
+
+  .heist-biggest,
+  .heist-top-five {
+    display: none;
+  }
+}
