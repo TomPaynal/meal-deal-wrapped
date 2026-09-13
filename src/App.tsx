@@ -14,10 +14,6 @@ import {
 } from './components/MealDealRace'
 
 import {
-  ComboHallOfFame,
-} from './components/ComboHallOfFame'
-
-import {
   ResolverDiagnostics,
 } from './components/ResolverDiagnostics'
 
@@ -29,14 +25,18 @@ import {
   ThroughTheYears,
 } from './components/ThroughTheYears'
 
+import {
+  FavouritesByPeriod,
+} from './components/FavouritesByPeriod'
+
 import './App.css'
 
 type Screen =
   | 'home'
   | 'race'
-  | 'combos'
   | 'heist'
   | 'history'
+  | 'favourites'
   | 'diagnostics'
 
 function App() {
@@ -82,19 +82,6 @@ function App() {
   }
 
   if (
-    screen === 'combos'
-  ) {
-    return (
-      <ComboHallOfFame
-        dataset={demoDataset}
-        onBack={() =>
-          setScreen('home')
-        }
-      />
-    )
-  }
-
-  if (
     screen === 'heist'
   ) {
     return (
@@ -112,6 +99,20 @@ function App() {
   ) {
     return (
       <ThroughTheYears
+        dataset={demoDataset}
+        onBack={() =>
+          setScreen('home')
+        }
+      />
+    )
+  }
+
+  if (
+    screen ===
+    'favourites'
+  ) {
+    return (
+      <FavouritesByPeriod
         dataset={demoDataset}
         onBack={() =>
           setScreen('home')
@@ -185,10 +186,12 @@ function App() {
           <button
             className="demo-button"
             onClick={() =>
-              setScreen('combos')
+              setScreen(
+                'favourites',
+              )
             }
           >
-            Preview combos
+            Your favourites
           </button>
 
           <button
