@@ -52,44 +52,103 @@ const raceOptions: RaceOption[] = [
 ]
 
 const MS_PER_MONTH = 170
-const MAX_VISIBLE = 8
-const ROW_HEIGHT = 76
+
+const DESKTOP_MAX_VISIBLE = 8
+const MOBILE_MAX_VISIBLE = 5
+
+const DESKTOP_ROW_HEIGHT = 76
+const MOBILE_ROW_HEIGHT = 64
+
+function useMobileRace() {
+  const [mobile, setMobile] =
+    useState(() =>
+      window.matchMedia(
+        '(max-width: 700px)',
+      ).matches,
+    )
+
+  useEffect(() => {
+    const query =
+      window.matchMedia(
+        '(max-width: 700px)',
+      )
+
+    function update() {
+      setMobile(
+        query.matches,
+      )
+    }
+
+    update()
+
+    query.addEventListener(
+      'change',
+      update,
+    )
+
+    return () => {
+      query.removeEventListener(
+        'change',
+        update,
+      )
+    }
+  }, [])
+
+  return mobile
+}
 
 export function MealDealRace({
   dataset,
   onBack,
 }: MealDealRaceProps) {
-  const [selectedRole, setSelectedRole] =
-    useState<RaceRole>('main')
+  const [
+    selectedRole,
+    setSelectedRole,
+  ] = useState<RaceRole>(
+    'main',
+  )
 
-  const [started, setStarted] =
-    useState(false)
+  const [
+    started,
+    setStarted,
+  ] = useState(false)
 
-  const [playing, setPlaying] =
-    useState(false)
+  const [
+    playing,
+    setPlaying,
+  ] = useState(false)
 
-  const [playhead, setPlayhead] =
-    useState(0)
+  const [
+    playhead,
+    setPlayhead,
+  ] = useState(0)
 
   const animationStartTime =
-    useRef<number | null>(null)
+    useRef<number | null>(
+      null,
+    )
 
   const animationStartPlayhead =
     useRef(0)
 
-  const snapshots = useMemo(
-    () =>
-      getMonthlyRaceSnapshots(
+  const snapshots =
+    useMemo(
+      () =>
+        getMonthlyRaceSnapshots(
+          dataset,
+          selectedRole,
+        ),
+      [
         dataset,
         selectedRole,
-      ),
-    [dataset, selectedRole],
-  )
+      ],
+    )
 
   const selectedOption =
     raceOptions.find(
       (option) =>
-        option.role === selectedRole,
+        option.role ===
+        selectedRole,
     ) ?? raceOptions[0]
 
   const dataLabel =
@@ -98,7 +157,10 @@ export function MealDealRace({
       : 'YOUR DATA'
 
   useEffect(() => {
-    if (!started || !playing) {
+    if (
+      !started ||
+      !playing
+    ) {
       animationStartTime.current =
         null
 
@@ -107,7 +169,9 @@ export function MealDealRace({
 
     let animationFrameId = 0
 
-    function animate(now: number) {
+    function animate(
+      now: number,
+    ) {
       if (
         animationStartTime.current ===
         null
@@ -121,7 +185,8 @@ export function MealDealRace({
         animationStartTime.current
 
       const monthsElapsed =
-        elapsed / MS_PER_MONTH
+        elapsed /
+        MS_PER_MONTH
 
       const nextPlayhead =
         animationStartPlayhead.current +
@@ -131,14 +196,21 @@ export function MealDealRace({
         snapshots.length - 1
 
       if (
-        nextPlayhead >= finalPlayhead
+        nextPlayhead >=
+        finalPlayhead
       ) {
-        setPlayhead(finalPlayhead)
+        setPlayhead(
+          finalPlayhead,
+        )
+
         setPlaying(false)
+
         return
       }
 
-      setPlayhead(nextPlayhead)
+      setPlayhead(
+        nextPlayhead,
+      )
 
       animationFrameId =
         window.requestAnimationFrame(
@@ -165,19 +237,27 @@ export function MealDealRace({
   function selectRace(
     role: RaceRole,
   ) {
-    setSelectedRole(role)
+    setSelectedRole(
+      role,
+    )
 
     setStarted(false)
     setPlaying(false)
     setPlayhead(0)
 
-    animationStartTime.current = null
-    animationStartPlayhead.current = 0
+    animationStartTime.current =
+      null
+
+    animationStartPlayhead.current =
+      0
   }
 
   function startRace() {
-    animationStartPlayhead.current = 0
-    animationStartTime.current = null
+    animationStartPlayhead.current =
+      0
+
+    animationStartTime.current =
+      null
 
     setPlayhead(0)
     setStarted(true)
@@ -185,18 +265,24 @@ export function MealDealRace({
   }
 
   function replayRace() {
-    animationStartPlayhead.current = 0
-    animationStartTime.current = null
+    animationStartPlayhead.current =
+      0
+
+    animationStartTime.current =
+      null
 
     setPlayhead(0)
     setPlaying(true)
   }
 
-  if (snapshots.length === 0) {
+  if (
+    snapshots.length === 0
+  ) {
     return (
       <main className="race-shell">
         <p>
-          No race data is available.
+          No race data is
+          available.
         </p>
 
         <button
@@ -237,7 +323,9 @@ export function MealDealRace({
         {raceOptions.map(
           (option) => (
             <button
-              key={option.role}
+              key={
+                option.role
+              }
               className={
                 option.role ===
                 selectedRole
@@ -266,13 +354,17 @@ export function MealDealRace({
             The
             <span>
               {' '}
-              {selectedOption.heading}
+              {
+                selectedOption.heading
+              }
             </span>
           </h2>
 
           <p className="race-ready-copy">
-            Watch years of Meal Deal
-            history unfold month by month.
+            Watch years of
+            Meal Deal history
+            unfold month by
+            month.
           </p>
 
           <button
@@ -285,19 +377,28 @@ export function MealDealRace({
           </button>
 
           <p className="race-warning">
-            Final standings stay hidden
-            until you start.
+            Final standings
+            stay hidden until
+            you start.
           </p>
         </section>
       ) : (
         <RaceAnimation
-          snapshots={snapshots}
-          playhead={playhead}
-          playing={playing}
+          snapshots={
+            snapshots
+          }
+          playhead={
+            playhead
+          }
+          playing={
+            playing
+          }
           selectedOption={
             selectedOption
           }
-          onReplay={replayRace}
+          onReplay={
+            replayRace
+          }
         />
       )}
     </main>
@@ -308,9 +409,13 @@ interface RaceAnimationProps {
   snapshots: ReturnType<
     typeof getMonthlyRaceSnapshots
   >
+
   playhead: number
   playing: boolean
-  selectedOption: RaceOption
+
+  selectedOption:
+    RaceOption
+
   onReplay: () => void
 }
 
@@ -321,134 +426,206 @@ function RaceAnimation({
   selectedOption,
   onReplay,
 }: RaceAnimationProps) {
-  const lowerIndex =
-    Math.floor(playhead)
+  const mobile =
+    useMobileRace()
 
-  const upperIndex = Math.min(
-    lowerIndex + 1,
-    snapshots.length - 1,
-  )
+  const lowerIndex =
+    Math.floor(
+      playhead,
+    )
+
+  const upperIndex =
+    Math.min(
+      lowerIndex + 1,
+      snapshots.length - 1,
+    )
 
   const fraction =
-    playhead - lowerIndex
+    playhead -
+    lowerIndex
 
   const lowerSnapshot =
-    snapshots[lowerIndex]
+    snapshots[
+      lowerIndex
+    ]
 
   const upperSnapshot =
-    snapshots[upperIndex]
+    snapshots[
+      upperIndex
+    ]
 
-  const lowerCounts = new Map(
-    lowerSnapshot.entries.map(
-      (entry) => [
-        entry.productId,
-        entry,
-      ],
-    ),
-  )
+  const lowerCounts =
+    new Map(
+      lowerSnapshot.entries.map(
+        (entry) => [
+          entry.productId,
+          entry,
+        ],
+      ),
+    )
 
-  const upperCounts = new Map(
-    upperSnapshot.entries.map(
-      (entry) => [
-        entry.productId,
-        entry,
-      ],
-    ),
-  )
+  const upperCounts =
+    new Map(
+      upperSnapshot.entries.map(
+        (entry) => [
+          entry.productId,
+          entry,
+        ],
+      ),
+    )
 
   const allProducts =
     snapshots[
       snapshots.length - 1
     ].entries
 
-  const animatedEntries: AnimatedEntry[] =
+  const animatedEntries:
+    AnimatedEntry[] =
     allProducts
-      .map((product) => {
-        const lower =
-          lowerCounts.get(
-            product.productId,
-          )
+      .map(
+        (product) => {
+          const lower =
+            lowerCounts.get(
+              product.productId,
+            )
 
-        const upper =
-          upperCounts.get(
-            product.productId,
-          )
+          const upper =
+            upperCounts.get(
+              product.productId,
+            )
 
-        const startCount =
-          lower?.count ?? 0
+          const startCount =
+            lower?.count ?? 0
 
-        const endCount =
-          upper?.count ??
-          startCount
+          const endCount =
+            upper?.count ??
+            startCount
 
-        const count =
-          startCount +
-          (endCount -
-            startCount) *
-            fraction
+          const count =
+            startCount +
+            (
+              endCount -
+              startCount
+            ) *
+              fraction
 
-        return {
-          productId:
-            product.productId,
+          return {
+            productId:
+              product.productId,
 
-          name: product.name,
+            name:
+              product.name,
 
-          count,
-        }
-      })
+            count,
+          }
+        },
+      )
       .filter(
         (entry) =>
           entry.count > 0,
       )
-      .sort((a, b) => {
-        if (
-          b.count !== a.count
-        ) {
-          return (
-            b.count - a.count
-          )
-        }
+      .sort(
+        (a, b) => {
+          if (
+            b.count !==
+            a.count
+          ) {
+            return (
+              b.count -
+              a.count
+            )
+          }
 
-        return a.name.localeCompare(
-          b.name,
-        )
-      })
+          return a.name.localeCompare(
+            b.name,
+          )
+        },
+      )
 
   const finalMaximumCount =
     Math.max(
       1,
+
       ...snapshots[
         snapshots.length - 1
       ].entries.map(
-        (entry) => entry.count,
+        (entry) =>
+          entry.count,
       ),
     )
+
+  /*
+   * On mobile this behaves like a
+   * traditional bar-chart race:
+   * the current leader defines 100%.
+   *
+   * That keeps the yellow bars large
+   * enough to become the labels
+   * themselves.
+   *
+   * Desktop deliberately retains the
+   * fixed lifetime scale we already
+   * liked.
+   */
+  const currentMaximumCount =
+    Math.max(
+      1,
+
+      ...animatedEntries.map(
+        (entry) =>
+          entry.count,
+      ),
+    )
+
+  const scaleMaximum =
+    mobile
+      ? currentMaximumCount
+      : finalMaximumCount
+
+  const maxVisible =
+    mobile
+      ? MOBILE_MAX_VISIBLE
+      : DESKTOP_MAX_VISIBLE
+
+  const rowHeight =
+    mobile
+      ? MOBILE_ROW_HEIGHT
+      : DESKTOP_ROW_HEIGHT
 
   const visibleCount =
     Math.min(
       animatedEntries.length,
-      MAX_VISIBLE,
+      maxVisible,
     )
 
   const progress =
     snapshots.length > 1
-      ? (playhead /
-          (snapshots.length -
-            1)) *
+      ? (
+          playhead /
+          (
+            snapshots.length -
+            1
+          )
+        ) *
         100
       : 100
 
   const displayedSnapshot =
     snapshots[
       Math.min(
-        Math.floor(playhead),
-        snapshots.length - 1,
+        Math.floor(
+          playhead,
+        ),
+
+        snapshots.length -
+          1,
       )
     ]
 
   const finished =
     playhead >=
-      snapshots.length - 1 &&
+      snapshots.length -
+        1 &&
     !playing
 
   return (
@@ -465,7 +642,9 @@ function RaceAnimation({
         </div>
 
         <div className="race-date">
-          {displayedSnapshot.label}
+          {
+            displayedSnapshot.label
+          }
         </div>
       </div>
 
@@ -476,19 +655,26 @@ function RaceAnimation({
             Math.max(
               visibleCount,
               1,
-            ) * ROW_HEIGHT
+            ) *
+            rowHeight
           }px`,
         }}
       >
         {animatedEntries.map(
-          (entry, rank) => {
+          (
+            entry,
+            rank,
+          ) => {
             const width =
-              (entry.count /
-                finalMaximumCount) *
+              (
+                entry.count /
+                scaleMaximum
+              ) *
               100
 
             const visible =
-              rank < MAX_VISIBLE
+              rank <
+              maxVisible
 
             return (
               <div
@@ -497,10 +683,11 @@ function RaceAnimation({
                 }
                 className="race-row"
                 style={{
-                  transform: `translateY(${
-                    rank *
-                    ROW_HEIGHT
-                  }px)`,
+                  transform:
+                    `translateY(${
+                      rank *
+                      rowHeight
+                    }px)`,
 
                   opacity:
                     visible
@@ -508,7 +695,7 @@ function RaceAnimation({
                       : 0,
 
                   zIndex:
-                    MAX_VISIBLE -
+                    maxVisible -
                     rank,
                 }}
               >
@@ -520,7 +707,8 @@ function RaceAnimation({
                   <div
                     className="race-bar"
                     style={{
-                      width: `${width}%`,
+                      width:
+                        `${width}%`,
                     }}
                   />
 
@@ -545,7 +733,8 @@ function RaceAnimation({
           <div
             className="race-progress-fill"
             style={{
-              width: `${progress}%`,
+              width:
+                `${progress}%`,
             }}
           />
         </div>
@@ -553,7 +742,9 @@ function RaceAnimation({
         {finished && (
           <button
             className="race-replay"
-            onClick={onReplay}
+            onClick={
+              onReplay
+            }
           >
             Replay race
           </button>

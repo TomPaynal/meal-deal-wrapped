@@ -1,15 +1,31 @@
 .race-shell {
   min-height: 100vh;
-  padding: clamp(1.5rem, 4vw, 4rem);
+  padding:
+    clamp(
+      1.5rem,
+      4vw,
+      4rem
+    );
+
   background: #f8f6f0;
   color: #111;
 }
 
 .race-page-header {
-  width: min(1100px, 100%);
-  margin: 0 auto 1.5rem;
+  width:
+    min(
+      1100px,
+      100%
+    );
+
+  margin:
+    0 auto 1.5rem;
+
   display: grid;
-  grid-template-columns: 1fr auto 1fr;
+
+  grid-template-columns:
+    1fr auto 1fr;
+
   align-items: center;
 }
 
@@ -19,11 +35,17 @@
 
 .race-back {
   justify-self: start;
+
   border: 0;
-  background: transparent;
+
+  background:
+    transparent;
+
   color: #555;
+
   font: inherit;
   font-weight: 700;
+
   cursor: pointer;
 }
 
@@ -32,46 +54,74 @@
 }
 
 .race-eyebrow {
-  margin: 0 0 0.4rem;
+  margin:
+    0 0 0.4rem;
+
   color: #e43b35;
+
   font-size: 0.75rem;
   font-weight: 800;
-  letter-spacing: 0.16em;
+
+  letter-spacing:
+    0.16em;
 }
 
 .race-title {
   margin: 0;
-  font-size: clamp(
-    2rem,
-    5vw,
-    3.5rem
-  );
-  letter-spacing: -0.05em;
+
+  font-size:
+    clamp(
+      2rem,
+      5vw,
+      3.5rem
+    );
+
+  letter-spacing:
+    -0.05em;
 }
 
 .race-selector {
   width: fit-content;
-  margin: 0 auto 2.5rem;
+
+  margin:
+    0 auto 2.5rem;
+
   padding: 0.35rem;
+
   display: flex;
+
   gap: 0.25rem;
-  border-radius: 999px;
-  background: #e8e4dc;
+
+  border-radius:
+    999px;
+
+  background:
+    #e8e4dc;
 }
 
 .race-selector-button {
+  padding:
+    0.75rem 1.2rem;
+
   border: 0;
-  border-radius: 999px;
-  padding: 0.75rem 1.2rem;
-  background: transparent;
+
+  border-radius:
+    999px;
+
+  background:
+    transparent;
+
   color: #666;
+
   font: inherit;
   font-weight: 800;
+
   cursor: pointer;
+
   transition:
-    background 150ms ease,
-    color 150ms ease,
-    transform 150ms ease;
+    background 0.15s,
+    color 0.15s,
+    transform 0.15s;
 }
 
 .race-selector-button:hover {
@@ -83,277 +133,803 @@
   color: white;
 }
 
+/* -------------------------
+   READY
+------------------------- */
+
 .race-ready {
-  min-height: calc(
-    100vh - 15rem
-  );
+  min-height:
+    calc(
+      100vh - 15rem
+    );
+
   display: grid;
-  place-content: center;
-  justify-items: center;
+
+  place-content:
+    center;
+
+  justify-items:
+    center;
+
   text-align: center;
 }
 
 .race-ready-title {
+  max-width:
+    800px;
+
   margin: 0;
-  max-width: 800px;
-  font-size: clamp(
-    4rem,
-    11vw,
-    8rem
-  );
+
+  font-size:
+    clamp(
+      4rem,
+      11vw,
+      8rem
+    );
+
   line-height: 0.86;
-  letter-spacing: -0.07em;
+
+  letter-spacing:
+    -0.07em;
 }
 
 .race-ready-title span {
   display: block;
-  color: #2864dc;
+
+  color: #00539f;
 }
 
 .race-ready-copy {
-  max-width: 520px;
-  margin: 2rem auto;
+  max-width:
+    520px;
+
+  margin:
+    2rem auto;
+
   color: #555;
+
   font-size: 1.15rem;
   line-height: 1.6;
 }
 
 .race-start {
+  padding:
+    1.1rem 2rem;
+
   border: 0;
-  border-radius: 999px;
-  padding: 1.1rem 2rem;
+
+  border-radius:
+    999px;
+
   background: #111;
   color: white;
+
   font: inherit;
   font-size: 1.05rem;
   font-weight: 900;
+
   cursor: pointer;
+
   transition:
-    transform 150ms ease,
-    background 150ms ease;
+    transform 0.15s,
+    background 0.15s;
 }
 
 .race-start:hover {
-  transform: translateY(-2px);
-  background: #2864dc;
+  background:
+    #00539f;
+
+  transform:
+    translateY(-2px);
 }
 
 .race-warning {
   margin-top: 1rem;
+
   color: #888;
+
   font-size: 0.8rem;
 }
 
+/* -------------------------
+   LIVE RACE
+------------------------- */
+
 .race-live-heading {
-  width: min(1000px, 100%);
-  margin: 0 auto 2rem;
+  width:
+    min(
+      1000px,
+      100%
+    );
+
+  margin:
+    0 auto 2rem;
+
   display: flex;
-  justify-content: space-between;
+
+  justify-content:
+    space-between;
+
   align-items: end;
+
   gap: 2rem;
 }
 
 .race-live-title {
   margin: 0;
-  font-size: clamp(
-    2rem,
-    5vw,
-    3.5rem
-  );
-  letter-spacing: -0.05em;
+
+  font-size:
+    clamp(
+      2rem,
+      5vw,
+      3.5rem
+    );
+
+  letter-spacing:
+    -0.05em;
 }
 
 .race-date {
   min-width: 190px;
 
-  color: #2864dc;
+  color: #00539f;
 
-  font-size: clamp(
-    1.2rem,
-    3vw,
-    2rem
-  );
+  font-size:
+    clamp(
+      1.2rem,
+      3vw,
+      2rem
+    );
 
   font-weight: 800;
 
   text-align: right;
-  white-space: nowrap;
+
+  white-space:
+    nowrap;
 }
 
+/* -------------------------
+   TRACK
+------------------------- */
+
 .race-track {
-  position: relative;
-  width: min(1000px, 100%);
+  width:
+    min(
+      1000px,
+      100%
+    );
+
   margin: 0 auto;
+
+  position: relative;
+
   overflow: hidden;
 }
 
 .race-row {
-  position: absolute;
-  inset: 0 0 auto 0;
   height: 64px;
+
+  position: absolute;
+
+  inset:
+    0 0 auto 0;
+
   display: grid;
+
   grid-template-columns:
     42px 1fr 70px;
+
   align-items: center;
+
   gap: 1rem;
 
   transition:
-    transform 360ms
+    transform
+      0.36s
       cubic-bezier(
         0.22,
         1,
         0.36,
         1
       ),
-    opacity 220ms ease;
+    opacity 0.22s;
 
-  will-change: transform;
+  will-change:
+    transform;
 }
 
 .race-rank {
-  text-align: right;
+  color: #777;
+
   font-size: 1.15rem;
   font-weight: 800;
-  color: #777;
+
+  text-align: right;
 }
 
 .race-bar-zone {
-  position: relative;
   height: 54px;
+
+  position: relative;
+
   overflow: hidden;
+
   border-radius: 12px;
 }
 
 .race-bar {
   position: absolute;
-  inset: 0 auto 0 0;
+
+  inset:
+    0 auto 0 0;
+
   border-radius: 12px;
-  background: #2864dc;
+
+  background: #00539f;
+
   will-change: width;
 }
 
 .race-name {
+  width: fit-content;
+
+  max-width:
+    calc(
+      100% - 1.4rem
+    );
+
+  padding:
+    0.28rem 0.65rem;
+
   position: absolute;
 
-  /* Explicitly cancel any old stretching behaviour */
-  inset: auto;
-  left: 0.7rem;
-  top: 50%;
-  right: auto;
+  inset:
+    50% auto auto 0.7rem;
 
-  transform: translateY(-50%);
+  display:
+    inline-flex;
 
-  display: inline-flex;
   align-items: center;
 
-  /* This is the important bit */
-  width: fit-content;
-  max-width: calc(100% - 1.4rem);
+  overflow: hidden;
 
-  padding: 0.28rem 0.65rem;
+  border-radius:
+    999px;
 
   background: #ffd900;
-  color: #111;
-  border-radius: 999px;
 
-  font-size: clamp(
-    0.85rem,
-    2vw,
-    1.1rem
-  );
+  color: #111;
+
+  font-size:
+    clamp(
+      0.85rem,
+      2vw,
+      1.1rem
+    );
+
   font-weight: 800;
 
   white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+
+  text-overflow:
+    ellipsis;
 
   pointer-events: none;
+
+  transform:
+    translateY(-50%);
 }
 
 .race-count {
   font-size: 1.45rem;
   font-weight: 900;
+
   font-variant-numeric:
     tabular-nums;
 }
 
+/* -------------------------
+   FOOTER
+------------------------- */
+
 .race-footer {
-  width: min(1000px, 100%);
-  margin: 2rem auto 0;
+  width:
+    min(
+      1000px,
+      100%
+    );
+
+  margin:
+    2rem auto 0;
+
   text-align: center;
 }
 
 .race-progress {
   height: 6px;
+
   overflow: hidden;
-  border-radius: 999px;
+
+  border-radius:
+    999px;
+
   background: #dedbd3;
 }
 
 .race-progress-fill {
   height: 100%;
-  border-radius: inherit;
+
+  border-radius:
+    inherit;
+
   background: #e43b35;
 }
 
 .race-replay {
   margin-top: 2rem;
+
+  padding:
+    0.9rem 1.4rem;
+
   border: 0;
-  border-radius: 999px;
-  padding: 0.9rem 1.4rem;
+
+  border-radius:
+    999px;
+
   background: #111;
   color: white;
+
   font: inherit;
   font-weight: 800;
+
   cursor: pointer;
 }
 
+/* =========================================================
+   MOBILE WRAPPED MODE
+   ========================================================= */
+
 @media (max-width: 700px) {
   .race-shell {
-    padding: 1.25rem;
+    width: 100%;
+
+    min-height: 100svh;
+
+    padding:
+      1rem
+      1.1rem
+      calc(
+        1rem +
+        env(
+          safe-area-inset-bottom
+        )
+      );
+
+    display: flex;
+
+    flex-direction:
+      column;
+
+    overflow: hidden;
+
+    background:
+      #00539f;
+
+    color: white;
   }
 
+  /* -----------------------
+     HEADER
+  ----------------------- */
+
   .race-page-header {
+    width: 100%;
+
+    margin:
+      0 0 0.9rem;
+
     grid-template-columns:
-      1fr auto;
+      auto 1fr;
+
+    gap: 1rem;
+
+    align-items:
+      center;
   }
 
   .race-page-heading {
     text-align: right;
   }
 
+  .race-back {
+    color:
+      rgba(
+        255,
+        255,
+        255,
+        0.82
+      );
+
+    font-size: 0.9rem;
+  }
+
+  .race-back:hover {
+    color: white;
+  }
+
+  .race-eyebrow {
+    margin:
+      0 0 0.25rem;
+
+    color: #ffd900;
+
+    font-size: 0.65rem;
+    font-weight: 900;
+
+    letter-spacing:
+      0.15em;
+  }
+
+  .race-title {
+    color: white;
+
+    font-size:
+      clamp(
+        1.85rem,
+        8vw,
+        2.45rem
+      );
+
+    line-height: 0.95;
+
+    letter-spacing:
+      -0.055em;
+  }
+
+  /* -----------------------
+     ROLE PILLS
+  ----------------------- */
+
   .race-selector {
     width: 100%;
+
+    margin:
+      0 0 1.15rem;
+
+    padding: 0.28rem;
+
+    flex: 0 0 auto;
+
+    gap: 0.2rem;
+
+    background:
+      rgba(
+        255,
+        255,
+        255,
+        0.14
+      );
   }
 
   .race-selector-button {
     flex: 1;
-    padding-inline: 0.5rem;
+
+    padding:
+      0.7rem 0.35rem;
+
+    color:
+      rgba(
+        255,
+        255,
+        255,
+        0.72
+      );
+
+    font-size: 0.92rem;
   }
 
+  .race-selector-button:hover {
+    color: white;
+  }
+
+  .race-selector-button.active,
+  .race-selector-button.active:hover {
+    background:
+      #ffd900;
+
+    color: #111;
+  }
+
+  /* -----------------------
+     READY SCREEN
+  ----------------------- */
+
+  .race-ready {
+    min-height: 0;
+
+    flex: 1;
+
+    place-content:
+      center;
+
+    padding-bottom: 8vh;
+  }
+
+  .race-ready .race-eyebrow {
+    color:
+      rgba(
+        255,
+        255,
+        255,
+        0.7
+      );
+  }
+
+  .race-ready-title {
+    max-width:
+      100%;
+
+    color: white;
+
+    font-size:
+      clamp(
+        3.4rem,
+        17vw,
+        5.4rem
+      );
+
+    line-height: 0.83;
+  }
+
+  .race-ready-title span {
+    color: #ffd900;
+  }
+
+  .race-ready-copy {
+    max-width:
+      300px;
+
+    margin:
+      1.5rem auto;
+
+    color:
+      rgba(
+        255,
+        255,
+        255,
+        0.78
+      );
+
+    font-size: 1rem;
+    line-height: 1.45;
+  }
+
+  .race-start {
+    padding:
+      0.95rem 1.5rem;
+
+    background:
+      #ffd900;
+
+    color: #111;
+  }
+
+  .race-start:hover {
+    background:
+      #ffd900;
+
+    transform: none;
+  }
+
+  .race-warning {
+    margin-top: 0.8rem;
+
+    color:
+      rgba(
+        255,
+        255,
+        255,
+        0.52
+      );
+
+    font-size: 0.72rem;
+  }
+
+  
+
+  /* -----------------------
+     LIVE HEADING
+  ----------------------- */
+
   .race-live-heading {
-    align-items: center;
+    width: 100%;
+
+    margin:
+      0.15rem 0 1rem;
+
+    flex: 0 0 auto;
+
+    align-items: end;
+
+    gap: 0.8rem;
+  }
+
+  .race-live-title {
+    color: white;
+
+    font-size:
+      clamp(
+        1.75rem,
+        8vw,
+        2.25rem
+      );
+
+    line-height: 0.95;
   }
 
   .race-date {
-    min-width: 145px;
+    min-width: 132px;
 
-    font-size: clamp(
-      1rem,
-      4.5vw,
-      1.3rem
-    );
+    padding-bottom: 0.1rem;
 
-  white-space: nowrap;
-}
+    color: white;
+
+    font-size:
+      clamp(
+        0.88rem,
+        4vw,
+        1.05rem
+      );
+
+    line-height: 1;
+
+    white-space:
+      nowrap;
+  }
+
+  /* -----------------------
+     TOP FIVE RACE
+  ----------------------- */
+
+  .race-track {
+    width: 100%;
+
+    margin: 0;
+
+    flex: 0 0 auto;
+  }
 
   .race-row {
+    height: 56px;
+
     grid-template-columns:
-      28px 1fr 44px;
-    gap: 0.6rem;
+      22px
+      minmax(
+        0,
+        1fr
+      )
+      38px;
+
+    gap: 0.5rem;
+  }
+
+  .race-rank {
+    color:
+      rgba(
+        255,
+        255,
+        255,
+        0.68
+      );
+
+    font-size: 0.92rem;
+
+    text-align: right;
+  }
+
+  .race-bar-zone {
+    height: 50px;
+
+    border-radius: 11px;
+
+    overflow: hidden;
+  }
+
+  .race-bar {
+    min-width: 1px;
+
+    border-radius: 11px;
+
+    background:
+      #ffd900;
+  }
+
+  /*
+   * On mobile the yellow bar IS
+   * the label. No nested sticker.
+   */
+  .race-name {
+    max-width:
+      calc(
+        100% - 0.7rem
+      );
+
+    padding:
+      0 0.45rem;
+
+    inset:
+      50% auto auto 0.25rem;
+
+    border-radius: 0;
+
+    background:
+      transparent;
+
+    color: #111;
+
+    font-size:
+      clamp(
+        0.76rem,
+        3.5vw,
+        0.96rem
+      );
+
+    font-weight: 900;
+
+    text-overflow:
+      ellipsis;
   }
 
   .race-count {
-    font-size: 1.1rem;
+    color: white;
+
+    font-size: 1rem;
+
+    text-align: right;
+  }
+
+  /* -----------------------
+     PROGRESS / REPLAY
+  ----------------------- */
+
+  .race-footer {
+    width: 100%;
+
+    margin:
+      0.75rem 0 0;
+
+    flex: 0 0 auto;
+  }
+
+  .race-progress {
+    height: 4px;
+
+    background:
+      rgba(
+        255,
+        255,
+        255,
+        0.2
+      );
+  }
+
+  .race-progress-fill {
+    background:
+      #ffd900;
+  }
+
+  .race-replay {
+    margin-top: 0.7rem;
+
+    padding:
+      0.7rem 1.1rem;
+
+    background:
+      #ffd900;
+
+    color: #111;
+
+    font-size: 0.82rem;
   }
 }
