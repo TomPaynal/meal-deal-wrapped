@@ -1,0 +1,310 @@
+.mobile-history {
+  display: none;
+}
+
+@media (max-width: 700px) {
+  .mobile-history {
+    width: 100%;
+
+    min-height: 100svh;
+
+    padding:
+      1rem
+      1.1rem
+      calc(
+        1rem +
+        env(
+          safe-area-inset-bottom
+        )
+      );
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 0.85rem;
+
+    background: #00539f;
+    color: white;
+  }
+
+  /* -----------------------
+     HEADER
+  ----------------------- */
+
+  .mobile-history-header {
+    display: grid;
+
+    grid-template-columns:
+      auto 1fr;
+
+    align-items: center;
+
+    gap: 1rem;
+
+    margin-bottom: 0.15rem;
+  }
+
+  .mobile-history-back {
+    padding: 0;
+
+    border: 0;
+
+    background: transparent;
+
+    color:
+      rgba(
+        255,
+        255,
+        255,
+        0.82
+      );
+
+    font: inherit;
+    font-size: 0.9rem;
+    font-weight: 700;
+
+    cursor: pointer;
+  }
+
+  .mobile-history-heading {
+    text-align: right;
+  }
+
+  .mobile-history-heading p {
+    margin:
+      0 0 0.2rem;
+
+    color: #ffd900;
+
+    font-size: 0.65rem;
+    font-weight: 900;
+
+    letter-spacing:
+      0.15em;
+  }
+
+  .mobile-history-heading h1 {
+    margin: 0;
+
+    font-size:
+      clamp(
+        1.9rem,
+        8vw,
+        2.5rem
+      );
+
+    line-height: 0.95;
+
+    letter-spacing:
+      -0.055em;
+  }
+
+  /* -----------------------
+     FIRST MEAL DEAL HERO
+  ----------------------- */
+
+  .mobile-history-first {
+    padding:
+      1.35rem
+      1.15rem;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 26px;
+
+    background: #ee1c2e;
+
+    text-align: center;
+  }
+
+  .mobile-history-first-label {
+    margin-bottom: 0.45rem;
+
+    color:
+      rgba(
+        255,
+        255,
+        255,
+        0.78
+      );
+
+    font-size: 0.68rem;
+    font-weight: 900;
+
+    letter-spacing:
+      0.14em;
+  }
+
+  .mobile-history-first-date {
+    color: white;
+
+    font-size:
+      clamp(
+        2rem,
+        9vw,
+        2.8rem
+      );
+
+    line-height: 1;
+
+    letter-spacing:
+      -0.05em;
+  }
+
+  .mobile-history-first-meal {
+    width: 100%;
+
+    margin-top: 1rem;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    gap: 0.18rem;
+  }
+
+  .mobile-history-first-meal strong {
+    max-width: 100%;
+
+    color: white;
+
+    font-size:
+      clamp(
+        0.95rem,
+        4vw,
+        1.15rem
+      );
+
+    line-height: 1.15;
+  }
+
+  .mobile-history-first-meal span {
+    color: #ffd900;
+
+    font-size: 1.55rem;
+    font-weight: 900;
+
+    line-height: 0.9;
+  }
+
+  /* -----------------------
+     HISTORY STICKERS
+  ----------------------- */
+
+  .mobile-history-stats {
+    display: grid;
+
+    grid-template-columns:
+      repeat(
+        2,
+        minmax(0, 1fr)
+      );
+
+    gap: 0.75rem;
+  }
+
+  .mobile-history-sticker {
+    min-height: 108px;
+
+    padding:
+      0.9rem
+      0.7rem;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 20px;
+
+    background: #ffd900;
+    color: #111;
+
+    text-align: center;
+  }
+
+  .mobile-history-sticker span {
+    margin-bottom: 0.35rem;
+
+    color:
+      rgba(
+        0,
+        0,
+        0,
+        0.58
+      );
+
+    font-size: 0.68rem;
+    font-weight: 900;
+
+    line-height: 1.15;
+  }
+
+  .mobile-history-sticker strong {
+    font-size:
+      clamp(
+        1.3rem,
+        6vw,
+        1.8rem
+      );
+
+    line-height: 1;
+
+    letter-spacing:
+      -0.04em;
+  }
+
+  .mobile-history-sticker small {
+    margin-top: 0.35rem;
+
+    color:
+      rgba(
+        0,
+        0,
+        0,
+        0.58
+      );
+
+    font-size: 0.68rem;
+    font-weight: 800;
+
+    line-height: 1.2;
+  }
+
+  .mobile-history-gap {
+    grid-column:
+      1 / -1;
+
+    min-height: 100px;
+  }
+
+  /* -----------------------
+     EMPTY
+  ----------------------- */
+
+  .mobile-history-empty {
+    margin: auto;
+
+    color:
+      rgba(
+        255,
+        255,
+        255,
+        0.75
+      );
+
+    text-align: center;
+  }
+}

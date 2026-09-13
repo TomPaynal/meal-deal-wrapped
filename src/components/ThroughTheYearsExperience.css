@@ -1,0 +1,17 @@
+.through-years-mobile {
+  display: none;
+}
+
+.through-years-desktop {
+  display: block;
+}
+
+@media (max-width: 700px) {
+  .through-years-mobile {
+    display: block;
+  }
+
+  .through-years-desktop {
+    display: none;
+  }
+}

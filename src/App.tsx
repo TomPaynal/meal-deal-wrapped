@@ -22,8 +22,8 @@ import {
 } from './components/BeatMealDeal'
 
 import {
-  ThroughTheYears,
-} from './components/ThroughTheYears'
+  ThroughTheYearsExperience,
+} from './components/ThroughTheYearsExperience'
 
 import {
   FavouritesByPeriod,
@@ -98,7 +98,7 @@ function App() {
     screen === 'history'
   ) {
     return (
-      <ThroughTheYears
+      <ThroughTheYearsExperience
         dataset={demoDataset}
         onBack={() =>
           setScreen('home')
