@@ -1,0 +1,577 @@
+.history-shell {
+  min-height: 100vh;
+  padding: clamp(1.5rem, 4vw, 4rem);
+
+  background: #f8f6f0;
+  color: #111;
+}
+
+.history-header {
+  width: min(1100px, 100%);
+  margin: 0 auto 2.5rem;
+
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+}
+
+.history-heading {
+  text-align: center;
+}
+
+.history-heading h1 {
+  margin: 0;
+
+  font-size: clamp(
+    2rem,
+    5vw,
+    3.5rem
+  );
+
+  letter-spacing: -0.05em;
+}
+
+.history-eyebrow {
+  margin: 0 0 0.5rem;
+
+  color: #e43b35;
+
+  font-size: 0.75rem;
+  font-weight: 900;
+  letter-spacing: 0.16em;
+}
+
+.history-back {
+  justify-self: start;
+
+  border: 0;
+  background: transparent;
+
+  color: #555;
+
+  font: inherit;
+  font-weight: 700;
+
+  cursor: pointer;
+}
+
+.history-back:hover {
+  color: #111;
+}
+
+.history-intro {
+  width: min(1000px, 100%);
+  margin: 0 auto 1.5rem;
+
+  text-align: center;
+}
+
+.history-intro p:last-child {
+  margin: 0;
+
+  color: #555;
+
+  font-size: 1.05rem;
+}
+
+/* -------------------------
+   GROUPING CONTROL
+------------------------- */
+
+.history-controls {
+  width: min(1000px, 100%);
+  margin: 0 auto 1.5rem;
+
+  padding: 1rem;
+
+  display: flex;
+
+  border-radius: 20px;
+
+  background: white;
+}
+
+.history-control-group > span {
+  display: block;
+
+  margin-bottom: 0.45rem;
+
+  color: #666;
+
+  font-size: 0.7rem;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+
+  text-transform: uppercase;
+}
+
+.history-control-group > div {
+  display: flex;
+
+  gap: 0.4rem;
+}
+
+.history-control-button {
+  padding: 0.55rem 0.9rem;
+
+  border: 0;
+  border-radius: 999px;
+
+  background: #efede7;
+  color: #555;
+
+  font: inherit;
+  font-size: 0.85rem;
+  font-weight: 800;
+
+  cursor: pointer;
+}
+
+.history-control-button:hover {
+  color: #111;
+}
+
+.history-control-button-active {
+  background: #2864dc;
+  color: white;
+}
+
+.history-control-button-active:hover {
+  color: white;
+}
+
+/* -------------------------
+   CHART
+------------------------- */
+
+.history-chart-card {
+  width: min(1000px, 100%);
+  margin: 0 auto;
+
+  padding:
+    clamp(1.5rem, 4vw, 2.5rem);
+
+  border-radius: 32px;
+
+  background: #2864dc;
+  color: white;
+}
+
+.history-chart-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+
+  gap: 2rem;
+}
+
+.history-chart-kicker {
+  margin: 0 0 0.35rem;
+
+  color: #ffd900;
+
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.14em;
+}
+
+.history-chart-heading h2 {
+  margin: 0;
+
+  font-size: clamp(
+    2rem,
+    5vw,
+    3.2rem
+  );
+
+  letter-spacing: -0.05em;
+}
+
+.history-chart-total {
+  text-align: right;
+}
+
+.history-chart-total strong {
+  display: block;
+
+  font-size: clamp(
+    2.5rem,
+    6vw,
+    4.5rem
+  );
+
+  line-height: 0.9;
+  letter-spacing: -0.06em;
+}
+
+.history-chart-total span {
+  display: block;
+
+  margin-top: 0.35rem;
+
+  font-size: 0.8rem;
+  font-weight: 800;
+
+  opacity: 0.8;
+}
+
+.history-chart {
+  width: 100%;
+  height: auto;
+
+  margin-top: 1.5rem;
+
+  overflow: visible;
+}
+
+.history-chart-grid {
+  stroke:
+    rgba(
+      255,
+      255,
+      255,
+      0.16
+    );
+
+  stroke-width: 1;
+}
+
+.history-chart-area {
+  fill:
+    rgba(
+      255,
+      217,
+      0,
+      0.14
+    );
+}
+
+.history-chart-line {
+  fill: none;
+
+  stroke: #ffd900;
+  stroke-width: 4;
+
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.history-chart-point {
+  fill: #ffd900;
+
+  stroke: #2864dc;
+  stroke-width: 2;
+}
+
+.history-chart-x-label,
+.history-chart-y-label {
+  fill:
+    rgba(
+      255,
+      255,
+      255,
+      0.7
+    );
+
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.history-chart-empty {
+  padding: 5rem 1rem;
+
+  text-align: center;
+
+  color:
+    rgba(
+      255,
+      255,
+      255,
+      0.7
+    );
+}
+
+/* -------------------------
+   SUMMARY
+------------------------- */
+
+.history-summary-grid {
+  width: min(1000px, 100%);
+  margin: 1rem auto 0;
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(
+      3,
+      minmax(
+        0,
+        1fr
+      )
+    );
+
+  gap: 1rem;
+}
+
+.history-summary-card {
+  min-height: 125px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  padding: 1.3rem;
+
+  border-radius: 20px;
+
+  background: white;
+
+  text-align: center;
+}
+
+.history-summary-card strong {
+  display: block;
+
+  font-size: clamp(
+    1.35rem,
+    3vw,
+    2rem
+  );
+
+  letter-spacing: -0.04em;
+}
+
+.history-summary-card span {
+  margin-top: 0.3rem;
+
+  color: #666;
+
+  font-size: 0.8rem;
+  font-weight: 800;
+}
+
+.history-summary-card small {
+  margin-top: 0.3rem;
+
+  color: #999;
+
+  font-size: 0.72rem;
+}
+
+/* -------------------------
+   FAVOURITES
+------------------------- */
+
+.history-favourites {
+  width: min(1000px, 100%);
+  margin: 5rem auto 0;
+}
+
+.history-favourites-header {
+  margin-bottom: 1.5rem;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+
+  gap: 2rem;
+}
+
+.history-favourites-header h2 {
+  margin: 0;
+
+  font-size: clamp(
+    2rem,
+    5vw,
+    3.5rem
+  );
+
+  letter-spacing: -0.05em;
+}
+
+.history-role-selector {
+  display: flex;
+
+  padding: 0.3rem;
+
+  gap: 0.25rem;
+
+  border-radius: 999px;
+
+  background: white;
+}
+
+.history-role-pill {
+  padding: 0.55rem 0.9rem;
+
+  border: 0;
+  border-radius: 999px;
+
+  background: transparent;
+  color: #666;
+
+  font: inherit;
+  font-size: 0.85rem;
+  font-weight: 800;
+
+  cursor: pointer;
+}
+
+.history-role-pill-active {
+  background: #2864dc;
+  color: white;
+}
+
+.history-favourite-list {
+  display: grid;
+
+  gap: 0.7rem;
+}
+
+.history-favourite-row {
+  display: grid;
+
+  grid-template-columns:
+    140px
+    minmax(0, 1fr)
+    90px
+    100px;
+
+  align-items: center;
+
+  gap: 1rem;
+
+  padding: 1rem 1.2rem;
+
+  border-radius: 18px;
+
+  background: white;
+}
+
+.history-period {
+  color: #2864dc;
+
+  font-size: 1rem;
+  font-weight: 900;
+}
+
+.history-period-winner {
+  display: grid;
+
+  gap: 0.15rem;
+}
+
+.history-period-label {
+  color: #999;
+
+  font-size: 0.65rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+
+  text-transform: uppercase;
+}
+
+.history-period-winner strong {
+  font-size: 1rem;
+}
+
+.history-period-stat {
+  text-align: right;
+}
+
+.history-period-stat strong {
+  display: block;
+
+  font-size: 1.05rem;
+}
+
+.history-period-stat span {
+  display: block;
+
+  margin-top: 0.1rem;
+
+  color: #888;
+
+  font-size: 0.65rem;
+  font-weight: 700;
+}
+
+.history-no-favourites {
+  padding: 3rem;
+
+  border-radius: 20px;
+
+  background: white;
+
+  color: #777;
+
+  text-align: center;
+}
+
+.history-empty {
+  width: min(700px, 100%);
+  margin: 8rem auto;
+
+  text-align: center;
+}
+
+/* -------------------------
+   MOBILE
+------------------------- */
+
+@media (max-width: 800px) {
+  .history-shell {
+    padding: 1.25rem;
+  }
+
+  .history-header {
+    grid-template-columns:
+      auto 1fr;
+
+    gap: 1rem;
+  }
+
+  .history-heading {
+    text-align: right;
+  }
+
+  .history-chart-heading {
+    align-items: start;
+    flex-direction: column;
+
+    gap: 1rem;
+  }
+
+  .history-chart-total {
+    text-align: left;
+  }
+
+  .history-summary-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .history-favourites-header {
+    align-items: start;
+    flex-direction: column;
+  }
+
+  .history-favourite-row {
+    grid-template-columns:
+      1fr auto;
+
+    gap: 0.7rem;
+  }
+
+  .history-period {
+    grid-column:
+      1 / -1;
+  }
+
+  .history-period-winner {
+    grid-column: 1;
+  }
+
+  .history-period-stat {
+    grid-column: 2;
+  }
+}

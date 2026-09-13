@@ -25,6 +25,10 @@ import {
   BeatMealDeal,
 } from './components/BeatMealDeal'
 
+import {
+  ThroughTheYears,
+} from './components/ThroughTheYears'
+
 import './App.css'
 
 type Screen =
@@ -32,6 +36,7 @@ type Screen =
   | 'race'
   | 'combos'
   | 'heist'
+  | 'history'
   | 'diagnostics'
 
 function App() {
@@ -94,6 +99,19 @@ function App() {
   ) {
     return (
       <BeatMealDeal
+        dataset={demoDataset}
+        onBack={() =>
+          setScreen('home')
+        }
+      />
+    )
+  }
+
+  if (
+    screen === 'history'
+  ) {
+    return (
+      <ThroughTheYears
         dataset={demoDataset}
         onBack={() =>
           setScreen('home')
@@ -180,6 +198,17 @@ function App() {
             }
           >
             Beat the Meal Deal
+          </button>
+
+          <button
+            className="demo-button"
+            onClick={() =>
+              setScreen(
+                'history',
+              )
+            }
+          >
+            Through the years
           </button>
 
           <button
