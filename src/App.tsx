@@ -1,13 +1,16 @@
 import { useState } from 'react'
 
 import { demoDataset } from './data/demoData'
+
 import { MealDealRace } from './components/MealDealRace'
+import { ComboHallOfFame } from './components/ComboHallOfFame'
 
 import './App.css'
 
 type Screen =
   | 'home'
   | 'race'
+  | 'combos'
 
 function App() {
   const [fileName, setFileName] =
@@ -30,6 +33,17 @@ function App() {
   if (screen === 'race') {
     return (
       <MealDealRace
+        dataset={demoDataset}
+        onBack={() =>
+          setScreen('home')
+        }
+      />
+    )
+  }
+
+  if (screen === 'combos') {
+    return (
+      <ComboHallOfFame
         dataset={demoDataset}
         onBack={() =>
           setScreen('home')
@@ -75,7 +89,16 @@ function App() {
               setScreen('race')
             }
           >
-            Preview demo races
+            Preview races
+          </button>
+
+          <button
+            className="demo-button"
+            onClick={() =>
+              setScreen('combos')
+            }
+          >
+            Preview combos
           </button>
         </div>
 

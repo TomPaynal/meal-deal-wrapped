@@ -1,0 +1,519 @@
+.combo-shell {
+  min-height: 100vh;
+  padding: clamp(1.5rem, 4vw, 4rem);
+
+  background: #f8f6f0;
+  color: #111;
+}
+
+.combo-header {
+  width: min(1100px, 100%);
+  margin: 0 auto 3rem;
+
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+}
+
+.combo-heading {
+  text-align: center;
+}
+
+.combo-heading h1 {
+  margin: 0;
+
+  font-size: clamp(
+    2rem,
+    5vw,
+    3.5rem
+  );
+
+  letter-spacing: -0.05em;
+}
+
+.combo-back {
+  justify-self: start;
+
+  border: 0;
+  background: transparent;
+
+  color: #555;
+
+  font: inherit;
+  font-weight: 700;
+
+  cursor: pointer;
+}
+
+.combo-back:hover {
+  color: #111;
+}
+
+.combo-eyebrow {
+  margin: 0 0 0.5rem;
+
+  color: #e43b35;
+
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+}
+
+.combo-hero {
+  width: min(1000px, 100%);
+  margin: 0 auto;
+
+  text-align: center;
+}
+
+.combo-winner-kicker {
+  margin: 0 0 1.25rem;
+
+  color: #555;
+
+  font-size: 1.05rem;
+}
+
+/* -------------------------
+   PODIUM
+------------------------- */
+
+.combo-podium-card {
+  width: 100%;
+  margin-inline: auto;
+
+  overflow: hidden;
+
+  border-radius: 32px;
+
+  background: #2864dc;
+  color: white;
+}
+
+.combo-podium-first {
+  padding:
+    2.1rem
+    clamp(1.5rem, 4vw, 3rem)
+    3rem;
+}
+
+.combo-podium-second {
+  width: 92%;
+
+  padding:
+    1.7rem
+    clamp(1.3rem, 3vw, 2.4rem)
+    2.2rem;
+
+  border-radius: 28px;
+}
+
+.combo-podium-third {
+  width: 84%;
+
+  padding:
+    1.45rem
+    clamp(1.1rem, 3vw, 2rem)
+    1.9rem;
+
+  border-radius: 25px;
+}
+
+.combo-podium-stack {
+  margin-top: 1.25rem;
+
+  display: grid;
+  gap: 1.25rem;
+}
+
+.combo-podium-topline {
+  margin-bottom: 1.8rem;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  gap: 2rem;
+}
+
+.combo-podium-rank {
+  font-size: clamp(
+    3rem,
+    8vw,
+    6rem
+  );
+
+  font-weight: 900;
+  line-height: 0.8;
+  letter-spacing: -0.08em;
+
+  color: rgba(
+    255,
+    255,
+    255,
+    0.55
+  );
+}
+
+.combo-podium-second
+.combo-podium-rank {
+  font-size: clamp(
+    2.4rem,
+    6vw,
+    4.5rem
+  );
+}
+
+.combo-podium-third
+.combo-podium-rank {
+  font-size: clamp(
+    2rem,
+    5vw,
+    3.7rem
+  );
+}
+
+.combo-podium-count {
+  text-align: right;
+}
+
+.combo-podium-count strong {
+  display: block;
+
+  font-size: clamp(
+    2rem,
+    5vw,
+    4rem
+  );
+
+  line-height: 0.9;
+  letter-spacing: -0.05em;
+}
+
+.combo-podium-count span {
+  display: block;
+
+  margin-top: 0.35rem;
+
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.combo-podium-second
+.combo-podium-count strong {
+  font-size: clamp(
+    1.7rem,
+    4vw,
+    3rem
+  );
+}
+
+.combo-podium-third
+.combo-podium-count strong {
+  font-size: clamp(
+    1.5rem,
+    3.5vw,
+    2.5rem
+  );
+}
+
+/* -------------------------
+   PRODUCT BLOCKS
+------------------------- */
+
+.combo-products {
+  display: grid;
+
+  grid-template-columns:
+    1fr auto 1fr auto 1fr;
+
+  align-items: stretch;
+
+  gap: 1rem;
+}
+
+.combo-product {
+  min-height: 145px;
+
+  display: grid;
+
+  /*
+   * Fixed role row + flexible name row.
+   * This keeps MAIN / SNACK / DRINK
+   * perfectly aligned even when names wrap.
+   */
+  grid-template-rows:
+    1.5rem 1fr;
+
+  align-items: center;
+  justify-items: center;
+
+  padding: 1.4rem;
+
+  border-radius: 24px;
+
+  background: #ffd900;
+  color: #111;
+
+  text-align: center;
+}
+
+.combo-podium-second
+.combo-product {
+  min-height: 125px;
+}
+
+.combo-podium-third
+.combo-product {
+  min-height: 110px;
+}
+
+.combo-product-role {
+  margin: 0;
+
+  align-self: start;
+
+  font-size: 0.9rem;
+  font-weight: 900;
+  letter-spacing: 0.13em;
+
+  text-transform: uppercase;
+
+  color: rgba(
+    0,
+    0,
+    0,
+    0.62
+  );
+}
+
+.combo-podium-second
+.combo-product-role {
+  font-size: 0.82rem;
+}
+
+.combo-podium-third
+.combo-product-role {
+  font-size: 0.78rem;
+}
+
+.combo-product strong {
+  width: 100%;
+
+  align-self: center;
+
+  font-size: clamp(
+    1.15rem,
+    3vw,
+    1.7rem
+  );
+
+  line-height: 1.1;
+
+  text-align: center;
+}
+
+.combo-podium-second
+.combo-product strong {
+  font-size: clamp(
+    1rem,
+    2.6vw,
+    1.45rem
+  );
+}
+
+.combo-podium-third
+.combo-product strong {
+  font-size: clamp(
+    0.95rem,
+    2.4vw,
+    1.3rem
+  );
+}
+
+.combo-plus {
+  align-self: center;
+
+  color: white;
+
+  font-size: 2rem;
+  font-weight: 900;
+}
+
+/* -------------------------
+   SUMMARY
+------------------------- */
+
+.combo-summary {
+  margin: 1.5rem auto 0;
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(
+      2,
+      minmax(0, 1fr)
+    );
+
+  gap: 1rem;
+}
+
+.combo-summary > div {
+  padding: 1.4rem;
+
+  border-radius: 20px;
+
+  background: white;
+}
+
+.combo-summary strong {
+  display: block;
+
+  font-size: 2rem;
+
+  letter-spacing: -0.04em;
+}
+
+.combo-summary span {
+  color: #666;
+
+  font-size: 0.9rem;
+}
+
+/* -------------------------
+   #4–#10
+------------------------- */
+
+.combo-ranking {
+  width: min(1000px, 100%);
+
+  margin: 5rem auto 0;
+}
+
+.combo-ranking-title {
+  margin-bottom: 1.5rem;
+}
+
+.combo-ranking-title h2 {
+  margin: 0;
+
+  font-size: clamp(
+    2rem,
+    5vw,
+    3.5rem
+  );
+
+  letter-spacing: -0.05em;
+}
+
+.combo-list {
+  display: grid;
+
+  gap: 0.7rem;
+}
+
+.combo-row {
+  display: grid;
+
+  grid-template-columns:
+    60px 1fr 70px;
+
+  align-items: center;
+
+  gap: 1rem;
+
+  padding: 0.9rem 1.2rem;
+
+  border-radius: 16px;
+
+  background: white;
+}
+
+.combo-row-rank {
+  color: #2864dc;
+
+  font-size: 1.2rem;
+  font-weight: 900;
+}
+
+.combo-row-products {
+  display: flex;
+
+  flex-wrap: wrap;
+
+  align-items: center;
+
+  gap: 0.45rem;
+
+  font-weight: 750;
+}
+
+.combo-row-plus {
+  color: #888;
+
+  font-weight: 900;
+}
+
+.combo-row-count {
+  text-align: right;
+
+  font-size: 1.2rem;
+  font-weight: 900;
+}
+
+/* -------------------------
+   MOBILE
+------------------------- */
+
+@media (max-width: 750px) {
+  .combo-shell {
+    padding: 1.25rem;
+  }
+
+  .combo-header {
+    grid-template-columns:
+      auto 1fr;
+
+    gap: 1rem;
+  }
+
+  .combo-heading {
+    text-align: right;
+  }
+
+  .combo-podium-second,
+  .combo-podium-third {
+    width: 100%;
+  }
+
+  .combo-podium-topline {
+    margin-bottom: 1.25rem;
+  }
+
+  .combo-products {
+    grid-template-columns: 1fr;
+  }
+
+  .combo-plus {
+    line-height: 0.6;
+  }
+
+  .combo-product,
+  .combo-podium-second
+  .combo-product,
+  .combo-podium-third
+  .combo-product {
+    min-height: 100px;
+  }
+
+  .combo-row {
+    grid-template-columns:
+      45px 1fr 45px;
+
+    gap: 0.6rem;
+  }
+
+  .combo-row-products {
+    font-size: 0.85rem;
+  }
+}
