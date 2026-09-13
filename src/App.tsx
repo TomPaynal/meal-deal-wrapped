@@ -1,8 +1,10 @@
 import { useState } from 'react'
-import { MainRace } from './components/MainRace'
+import { MealDealRace } from './components/MealDealRace'
 import './App.css'
 
-type Screen = 'home' | 'race'
+type Screen =
+  | 'home'
+  | 'race'
 
 function App() {
   const [fileName, setFileName] =
@@ -14,7 +16,8 @@ function App() {
   function handleFileChange(
     event: React.ChangeEvent<HTMLInputElement>,
   ) {
-    const file = event.target.files?.[0]
+    const file =
+      event.target.files?.[0]
 
     if (file) {
       setFileName(file.name)
@@ -23,8 +26,10 @@ function App() {
 
   if (screen === 'race') {
     return (
-      <MainRace
-        onBack={() => setScreen('home')}
+      <MealDealRace
+        onBack={() =>
+          setScreen('home')
+        }
       />
     )
   }
@@ -42,8 +47,9 @@ function App() {
         </h1>
 
         <p className="intro">
-          Discover an unnecessarily detailed history
-          of your Tesco Meal Deal habits.
+          Discover an unnecessarily
+          detailed history of your Tesco
+          Meal Deal habits.
         </p>
 
         <div className="actions">
@@ -53,28 +59,35 @@ function App() {
             <input
               type="file"
               accept=".json,application/json"
-              onChange={handleFileChange}
+              onChange={
+                handleFileChange
+              }
             />
           </label>
 
           <button
             className="demo-button"
-            onClick={() => setScreen('race')}
+            onClick={() =>
+              setScreen('race')
+            }
           >
-            Preview demo race
+            Preview demo races
           </button>
         </div>
 
         {fileName && (
           <p className="selected-file">
             Ready to analyse:{' '}
-            <strong>{fileName}</strong>
+            <strong>
+              {fileName}
+            </strong>
           </p>
         )}
 
         <p className="privacy">
-          Your shopping data will be processed
-          entirely on your device.
+          Your shopping data will be
+          processed entirely on your
+          device.
         </p>
       </section>
     </main>
