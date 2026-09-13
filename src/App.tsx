@@ -1,5 +1,8 @@
 import { useState } from 'react'
+
+import { demoDataset } from './data/demoData'
 import { MealDealRace } from './components/MealDealRace'
+
 import './App.css'
 
 type Screen =
@@ -27,6 +30,7 @@ function App() {
   if (screen === 'race') {
     return (
       <MealDealRace
+        dataset={demoDataset}
         onBack={() =>
           setScreen('home')
         }

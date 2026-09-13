@@ -5,7 +5,9 @@ import {
   useState,
 } from 'react'
 
-import { demoDataset } from '../data/demoData'
+import type {
+  MealDealDataset,
+} from '../types/data'
 
 import {
   getMonthlyRaceSnapshots,
@@ -15,6 +17,7 @@ import {
 import './MealDealRace.css'
 
 interface MealDealRaceProps {
+  dataset: MealDealDataset
   onBack: () => void
 }
 
@@ -53,6 +56,7 @@ const MAX_VISIBLE = 8
 const ROW_HEIGHT = 76
 
 export function MealDealRace({
+  dataset,
   onBack,
 }: MealDealRaceProps) {
   const [selectedRole, setSelectedRole] =
@@ -76,10 +80,10 @@ export function MealDealRace({
   const snapshots = useMemo(
     () =>
       getMonthlyRaceSnapshots(
-        demoDataset,
+        dataset,
         selectedRole,
       ),
-    [selectedRole],
+    [dataset, selectedRole],
   )
 
   const selectedOption =
@@ -87,6 +91,11 @@ export function MealDealRace({
       (option) =>
         option.role === selectedRole,
     ) ?? raceOptions[0]
+
+  const dataLabel =
+    dataset.source === 'demo'
+      ? 'DEMO DATA'
+      : 'YOUR DATA'
 
   useEffect(() => {
     if (!started || !playing) {
@@ -187,8 +196,7 @@ export function MealDealRace({
     return (
       <main className="race-shell">
         <p>
-          No demo race data is
-          available.
+          No race data is available.
         </p>
 
         <button
@@ -251,7 +259,7 @@ export function MealDealRace({
       {!started ? (
         <section className="race-ready">
           <p className="race-eyebrow">
-            DEMO DATA
+            {dataLabel}
           </p>
 
           <h2 className="race-ready-title">
@@ -263,16 +271,17 @@ export function MealDealRace({
           </h2>
 
           <p className="race-ready-copy">
-            Watch years of completely
-            fictional Meal Deal history
-            unfold month by month.
+            Watch years of Meal Deal
+            history unfold month by month.
           </p>
 
           <button
             className="race-start"
             onClick={startRace}
           >
-            Start {selectedOption.label.toLowerCase()} race
+            Start{' '}
+            {selectedOption.label.toLowerCase()}{' '}
+            race
           </button>
 
           <p className="race-warning">
