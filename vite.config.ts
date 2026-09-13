@@ -7,7 +7,7 @@ export default defineConfig({
   /*
    * GitHub Pages will host this project at:
    *
-   * https://tomp-projects.github.io/meal-deal-wrapped/
+   * https://TomPaynal.github.io/meal-deal-wrapped/
    */
   base: '/meal-deal-wrapped/',
 })
