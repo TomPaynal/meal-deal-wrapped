@@ -842,7 +842,7 @@
     border-radius: 11px;
 
     background:
-      #ffd900;
+      #ee1c2e;
   }
 
   /*
@@ -866,7 +866,7 @@
     background:
       transparent;
 
-    color: #111;
+    color: #ffffff;
 
     font-size:
       clamp(
