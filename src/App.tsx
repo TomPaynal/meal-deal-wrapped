@@ -21,20 +21,33 @@ import {
   ResolverDiagnostics,
 } from './components/ResolverDiagnostics'
 
+import {
+  BeatMealDeal,
+} from './components/BeatMealDeal'
+
 import './App.css'
 
 type Screen =
   | 'home'
   | 'race'
   | 'combos'
+  | 'heist'
   | 'diagnostics'
 
 function App() {
-  const [fileName, setFileName] =
-    useState<string | null>(null)
+  const [
+    fileName,
+    setFileName,
+  ] = useState<
+    string | null
+  >(null)
 
-  const [screen, setScreen] =
-    useState<Screen>('home')
+  const [
+    screen,
+    setScreen,
+  ] = useState<Screen>(
+    'home',
+  )
 
   function handleFileChange(
     event:
@@ -44,11 +57,15 @@ function App() {
       event.target.files?.[0]
 
     if (file) {
-      setFileName(file.name)
+      setFileName(
+        file.name,
+      )
     }
   }
 
-  if (screen === 'race') {
+  if (
+    screen === 'race'
+  ) {
     return (
       <MealDealRace
         dataset={demoDataset}
@@ -59,9 +76,24 @@ function App() {
     )
   }
 
-  if (screen === 'combos') {
+  if (
+    screen === 'combos'
+  ) {
     return (
       <ComboHallOfFame
+        dataset={demoDataset}
+        onBack={() =>
+          setScreen('home')
+        }
+      />
+    )
+  }
+
+  if (
+    screen === 'heist'
+  ) {
+    return (
+      <BeatMealDeal
         dataset={demoDataset}
         onBack={() =>
           setScreen('home')
@@ -76,7 +108,9 @@ function App() {
   ) {
     return (
       <ResolverDiagnostics
-        dataset={demoDiagnosticDataset}
+        dataset={
+          demoDiagnosticDataset
+        }
         cases={
           demoDiagnosticCases
         }
@@ -96,7 +130,10 @@ function App() {
 
         <h1>
           Meal Deal
-          <span> Wrapped</span>
+          <span>
+            {' '}
+            Wrapped
+          </span>
         </h1>
 
         <p className="intro">
@@ -134,6 +171,15 @@ function App() {
             }
           >
             Preview combos
+          </button>
+
+          <button
+            className="demo-button"
+            onClick={() =>
+              setScreen('heist')
+            }
+          >
+            Beat the Meal Deal
           </button>
 
           <button
