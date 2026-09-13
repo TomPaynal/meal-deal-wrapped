@@ -1,12 +1,14 @@
 import type {
   MealDealDataset,
-  MealDealRole,
 } from '../types/data'
 
-export type RaceRole = Exclude<
-  MealDealRole,
-  'unknown'
->
+import {
+  resolveMealDeals,
+  type ResolvedMealDealRole,
+} from './mealDeals'
+
+export type RaceRole =
+  ResolvedMealDealRole
 
 export interface RaceEntry {
   productId: string
@@ -25,23 +27,33 @@ function rankCounts(
   counts: Map<string, number>,
 ): RaceEntry[] {
   return [...counts.entries()]
-    .map(([productId, count]) => {
-      const product = dataset.products[productId]
+    .map(
+      ([productId, count]) => {
+        const product =
+          dataset.products[
+            productId
+          ]
 
-      return {
-        productId,
-        name:
-          product.displayName ??
-          product.rawName,
-        count,
-      }
-    })
+        return {
+          productId,
+
+          name:
+            product?.displayName ??
+            product?.rawName ??
+            productId,
+
+          count,
+        }
+      },
+    )
     .sort((a, b) => {
       if (b.count !== a.count) {
         return b.count - a.count
       }
 
-      return a.name.localeCompare(b.name)
+      return a.name.localeCompare(
+        b.name,
+      )
     })
 }
 
@@ -49,30 +61,44 @@ export function getMonthlyRaceSnapshots(
   dataset: MealDealDataset,
   role: RaceRole,
 ): RaceSnapshot[] {
-  if (dataset.transactions.length === 0) {
+  const resolution =
+    resolveMealDeals(dataset)
+
+  const memberships =
+    resolution.memberships
+      .filter(
+        (membership) =>
+          membership.role === role,
+      )
+      .sort(
+        (a, b) =>
+          new Date(
+            a.occurredAt,
+          ).getTime() -
+          new Date(
+            b.occurredAt,
+          ).getTime(),
+      )
+
+  if (memberships.length === 0) {
     return []
   }
 
-  const transactions = [
-    ...dataset.transactions,
-  ].sort(
-    (a, b) =>
-      new Date(a.occurredAt).getTime() -
-      new Date(b.occurredAt).getTime(),
-  )
-
   const firstDate = new Date(
-    transactions[0].occurredAt,
+    memberships[0].occurredAt,
   )
 
   const lastDate = new Date(
-    transactions[
-      transactions.length - 1
+    memberships[
+      memberships.length - 1
     ].occurredAt,
   )
 
-  let year = firstDate.getUTCFullYear()
-  let month = firstDate.getUTCMonth()
+  let year =
+    firstDate.getUTCFullYear()
+
+  let month =
+    firstDate.getUTCMonth()
 
   const finalYear =
     lastDate.getUTCFullYear()
@@ -80,16 +106,20 @@ export function getMonthlyRaceSnapshots(
   const finalMonth =
     lastDate.getUTCMonth()
 
-  const counts = new Map<string, number>()
+  const counts =
+    new Map<string, number>()
 
-  const snapshots: RaceSnapshot[] = []
+  const snapshots:
+    RaceSnapshot[] = []
 
-  let transactionIndex = 0
+  let membershipIndex = 0
 
   while (
     year < finalYear ||
-    (year === finalYear &&
-      month <= finalMonth)
+    (
+      year === finalYear &&
+      month <= finalMonth
+    )
   ) {
     const monthEnd = new Date(
       Date.UTC(
@@ -104,48 +134,44 @@ export function getMonthlyRaceSnapshots(
     )
 
     while (
-      transactionIndex <
-        transactions.length &&
+      membershipIndex <
+        memberships.length &&
       new Date(
-        transactions[
-          transactionIndex
+        memberships[
+          membershipIndex
         ].occurredAt,
       ) <= monthEnd
     ) {
-      const transaction =
-        transactions[transactionIndex]
+      const membership =
+        memberships[
+          membershipIndex
+        ]
 
-      for (const item of transaction.items) {
-        const product =
-          dataset.products[
-            item.productId
-          ]
+      const currentCount =
+        counts.get(
+          membership.productId,
+        ) ?? 0
 
-        if (
-          product &&
-          product.mealDealRole === role
-        ) {
-          const currentCount =
-            counts.get(item.productId) ??
-            0
+      counts.set(
+        membership.productId,
+        currentCount + 1,
+      )
 
-          counts.set(
-            item.productId,
-            currentCount +
-              item.quantity,
-          )
-        }
-      }
-
-      transactionIndex += 1
+      membershipIndex += 1
     }
 
-    const snapshotDate = new Date(
-      Date.UTC(year, month, 1),
-    )
+    const snapshotDate =
+      new Date(
+        Date.UTC(
+          year,
+          month,
+          1,
+        ),
+      )
 
     snapshots.push({
-      date: snapshotDate.toISOString(),
+      date:
+        snapshotDate.toISOString(),
 
       label:
         snapshotDate.toLocaleDateString(
@@ -157,10 +183,11 @@ export function getMonthlyRaceSnapshots(
           },
         ),
 
-      entries: rankCounts(
-        dataset,
-        counts,
-      ),
+      entries:
+        rankCounts(
+          dataset,
+          counts,
+        ),
     })
 
     month += 1
