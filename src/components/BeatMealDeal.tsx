@@ -10,6 +10,10 @@ import {
   type HeistItem,
 } from '../analysis/beatMealDeal'
 
+import {
+  MobileBeatMealDeal,
+} from './MobileBeatMealDeal'
+
 import './BeatMealDeal.css'
 
 interface BeatMealDealProps {
@@ -68,240 +72,256 @@ export function BeatMealDeal({
   }
 
   return (
-    <main className="heist-shell">
-      <header className="heist-header">
-        <button
-          className="heist-back"
-          onClick={onBack}
-        >
-          ← Back
-        </button>
+    <>
+      <MobileBeatMealDeal
+        analysis={analysis}
+        biggest={biggest}
+        onBack={onBack}
+      />
 
-        <div className="heist-heading">
+      <main className="heist-shell heist-desktop">
+        <header className="heist-header">
+          <button
+            className="heist-back"
+            onClick={onBack}
+          >
+            ← Back
+          </button>
+
+          <div className="heist-heading">
+            <p className="heist-eyebrow">
+              BEAT THE MEAL DEAL
+            </p>
+
+            <h1>
+              Lifetime value
+            </h1>
+          </div>
+        </header>
+
+        <section className="heist-hero">
           <p className="heist-eyebrow">
-            BEAT THE MEAL DEAL
+            {dataLabel}
           </p>
 
-          <h1>
-            Lifetime value
-          </h1>
-        </div>
-      </header>
+          <p className="heist-intro">
+            What standard Meal Deals have
+            saved you over time
+          </p>
 
-      <section className="heist-hero">
-        <p className="heist-eyebrow">
-          {dataLabel}
-        </p>
+          <article className="heist-lifetime-hero">
+            <div className="heist-lifetime-top">
+              <div>
+                <span className="heist-winner-label">
+                  Lifetime saving
+                </span>
 
-        <p className="heist-intro">
-          What standard Meal Deals have
-          saved you over time
-        </p>
+                <strong className="heist-lifetime-saving">
+                  {formatMoney(
+                    analysis
+                      .lifetimeSavingPence,
+                  )}
+                </strong>
+              </div>
 
-        <article className="heist-lifetime-hero">
-          <div className="heist-lifetime-top">
-            <div>
-              <span className="heist-winner-label">
-                Lifetime saving
-              </span>
+              <div className="heist-lifetime-count">
+                <strong>
+                  {analysis.dealCount}
+                </strong>
 
-              <strong className="heist-lifetime-saving">
-                {formatMoney(
+                <span>
+                  Meal Deals analysed
+                </span>
+              </div>
+            </div>
+
+            <div className="heist-lifetime-equation">
+              <LifetimeFigure
+                label="Combined Shelf Value"
+                value={
                   analysis
-                    .lifetimeSavingPence,
-                )}
-              </strong>
+                    .lifetimeShelfValuePence
+                }
+              />
+
+              <div className="heist-lifetime-operator">
+                −
+              </div>
+
+              <LifetimeFigure
+                label="Meal Deal Spend"
+                value={
+                  analysis
+                    .lifetimeDealSpendPence
+                }
+              />
+
+              <div className="heist-lifetime-operator">
+                =
+              </div>
+
+              <LifetimeFigure
+                label="Lifetime Saving"
+                value={
+                  analysis
+                    .lifetimeSavingPence
+                }
+                featured
+              />
             </div>
+          </article>
 
-            <div className="heist-lifetime-count">
-              <strong>
-                {analysis.dealCount}
-              </strong>
-
-              <span>
-                Meal Deals analysed
-              </span>
-            </div>
-          </div>
-
-          <div className="heist-lifetime-equation">
-            <LifetimeFigure
-              label="Combined Shelf Value"
-              value={
+          <div className="heist-lifetime-metrics">
+            <MetricCard
+              value={formatMoney(
                 analysis
-                  .lifetimeShelfValuePence
-              }
-            />
-
-            <div className="heist-lifetime-operator">
-              −
-            </div>
-
-            <LifetimeFigure
-              label="Meal Deal Spend"
-              value={
-                analysis
-                  .lifetimeDealSpendPence
-              }
-            />
-
-            <div className="heist-lifetime-operator">
-              =
-            </div>
-
-            <LifetimeFigure
-              label="Lifetime Saving"
-              value={
-                analysis
-                  .lifetimeSavingPence
-              }
-              featured
-            />
-          </div>
-        </article>
-
-        <div className="heist-lifetime-metrics">
-          <MetricCard
-            value={formatMoney(
-              analysis
-                .averageShelfValuePence,
-            )}
-            label="Average Shelf Value Per Deal"
-          />
-
-          <MetricCard
-            value={formatMoney(
-              analysis
-                .averageSavingPence,
-            )}
-            label="Average Saving Per Deal"
-          />
-
-          <MetricCard
-            value={formatValuePerPound(
-              analysis
-                .averageValueMultiple,
-            )}
-            label="Shelf Value For Every £1 Spent"
-          />
-        </div>
-
-        <p className="heist-coverage">
-          Based on{' '}
-          <strong>
-            {analysis.dealCount}
-          </strong>{' '}
-          standard Meal Deals with
-          complete shelf-price data.
-        </p>
-      </section>
-
-      <section className="heist-biggest">
-        <div className="heist-section-heading">
-          <p className="heist-eyebrow">
-            YOUR BEST VALUE
-          </p>
-
-          <h2>
-            Biggest saving
-          </h2>
-        </div>
-
-        <article className="heist-winner">
-          <div className="heist-winner-top">
-            <div>
-              <span className="heist-winner-label">
-                Biggest saving
-              </span>
-
-              <strong className="heist-winner-saving">
-                {formatMoney(
-                  biggest.savingPence,
-                )}
-              </strong>
-            </div>
-
-            <time
-              className="heist-winner-date"
-              dateTime={
-                biggest.occurredAt
-              }
-            >
-              {formatDate(
-                biggest.occurredAt,
+                  .averageShelfValuePence,
               )}
-            </time>
+              label="Average Shelf Value Per Deal"
+            />
+
+            <MetricCard
+              value={formatMoney(
+                analysis
+                  .averageSavingPence,
+              )}
+              label="Average Saving Per Deal"
+            />
+
+            <MetricCard
+              value={formatValuePerPound(
+                analysis
+                  .averageValueMultiple,
+              )}
+              label="Shelf Value For Every £1 Spent"
+            />
           </div>
 
-          <div className="heist-products">
-            {biggest.items.map(
-              (item) => (
-                <ProductCard
-                  key={`${biggest.id}-${item.role}`}
-                  item={item}
+          <p className="heist-coverage">
+            Based on{' '}
+            <strong>
+              {analysis.dealCount}
+            </strong>{' '}
+            standard Meal Deals with
+            complete shelf-price data.
+          </p>
+        </section>
+
+        <section className="heist-biggest">
+          <div className="heist-section-heading">
+            <p className="heist-eyebrow">
+              YOUR BEST VALUE
+            </p>
+
+            <h2>
+              Biggest saving
+            </h2>
+          </div>
+
+          <article className="heist-winner">
+            <div className="heist-winner-top">
+              <div>
+                <span className="heist-winner-label">
+                  Biggest saving
+                </span>
+
+                <strong className="heist-winner-saving">
+                  {formatMoney(
+                    biggest.savingPence,
+                  )}
+                </strong>
+              </div>
+
+              <time
+                className="heist-winner-date"
+                dateTime={
+                  biggest.occurredAt
+                }
+              >
+                {formatDate(
+                  biggest.occurredAt,
+                )}
+              </time>
+            </div>
+
+            <div className="heist-products">
+              {biggest.items.map(
+                (item) => (
+                  <ProductCard
+                    key={`${biggest.id}-${item.role}`}
+                    item={item}
+                  />
+                ),
+              )}
+            </div>
+
+            <div className="heist-price-strip">
+              <PriceFigure
+                label="Shelf Total"
+                value={
+                  biggest
+                    .shelfTotalPence
+                }
+              />
+
+              <div className="heist-maths">
+                −
+              </div>
+
+              <PriceFigure
+                label="Meal Deal"
+                value={
+                  biggest
+                    .dealPricePence
+                }
+              />
+
+              <div className="heist-maths">
+                =
+              </div>
+
+              <PriceFigure
+                label="Saved"
+                value={
+                  biggest
+                    .savingPence
+                }
+                emphasised
+              />
+            </div>
+          </article>
+        </section>
+
+        <section className="heist-top-five">
+          <div className="heist-section-heading">
+            <p className="heist-eyebrow">
+              TOP FIVE
+            </p>
+
+            <h2>
+              Biggest savings
+            </h2>
+          </div>
+
+          <div className="heist-ranking">
+            {analysis.topSavings.map(
+              (
+                deal,
+                index,
+              ) => (
+                <TopSaving
+                  key={deal.id}
+                  deal={deal}
+                  rank={
+                    index + 1
+                  }
                 />
               ),
             )}
           </div>
-
-          <div className="heist-price-strip">
-            <PriceFigure
-              label="Shelf Total"
-              value={
-                biggest.shelfTotalPence
-              }
-            />
-
-            <div className="heist-maths">
-              −
-            </div>
-
-            <PriceFigure
-              label="Meal Deal"
-              value={
-                biggest.dealPricePence
-              }
-            />
-
-            <div className="heist-maths">
-              =
-            </div>
-
-            <PriceFigure
-              label="Saved"
-              value={
-                biggest.savingPence
-              }
-              emphasised
-            />
-          </div>
-        </article>
-      </section>
-
-      <section className="heist-top-five">
-        <div className="heist-section-heading">
-          <p className="heist-eyebrow">
-            TOP FIVE
-          </p>
-
-          <h2>
-            Biggest savings
-          </h2>
-        </div>
-
-        <div className="heist-ranking">
-          {analysis.topSavings.map(
-            (deal, index) => (
-              <TopSaving
-                key={deal.id}
-                deal={deal}
-                rank={index + 1}
-              />
-            ),
-          )}
-        </div>
-      </section>
-    </main>
+        </section>
+      </main>
+    </>
   )
 }
 
@@ -353,7 +373,9 @@ function LifetimeFigure({
       </span>
 
       <strong>
-        {formatMoney(value)}
+        {formatMoney(
+          value,
+        )}
       </strong>
     </div>
   )
@@ -381,7 +403,9 @@ function PriceFigure({
       </span>
 
       <strong>
-        {formatMoney(value)}
+        {formatMoney(
+          value,
+        )}
       </strong>
     </div>
   )
@@ -422,7 +446,9 @@ function TopSaving({
 
       <div className="heist-rank-main">
         <time
-          dateTime={deal.occurredAt}
+          dateTime={
+            deal.occurredAt
+          }
           className="heist-rank-date"
         >
           {formatDate(
@@ -432,7 +458,10 @@ function TopSaving({
 
         <div className="heist-rank-products">
           {deal.items.map(
-            (item, index) => (
+            (
+              item,
+              index,
+            ) => (
               <span
                 key={`${deal.id}-${item.role}`}
               >
@@ -513,7 +542,9 @@ function formatValuePerPound(
       minimumFractionDigits: 2,
       maximumFractionDigits: 2,
     },
-  ).format(multiple)
+  ).format(
+    multiple,
+  )
 }
 
 function formatPercent(
@@ -525,7 +556,9 @@ function formatPercent(
       style: 'percent',
       maximumFractionDigits: 1,
     },
-  ).format(ratio)
+  ).format(
+    ratio,
+  )
 }
 
 function formatDate(
@@ -540,19 +573,25 @@ function formatDate(
       timeZone: 'UTC',
     },
   ).format(
-    new Date(occurredAt),
+    new Date(
+      occurredAt,
+    ),
   )
 }
 
 function roleLabel(
   role: HeistItem['role'],
 ): string {
-  if (role === 'side') {
+  if (
+    role === 'side'
+  ) {
     return 'Snack'
   }
 
   return (
-    role.charAt(0).toUpperCase() +
+    role
+      .charAt(0)
+      .toUpperCase() +
     role.slice(1)
   )
 }

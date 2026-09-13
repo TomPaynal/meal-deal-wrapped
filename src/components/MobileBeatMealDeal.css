@@ -1,0 +1,584 @@
+.mobile-heist {
+  display: none;
+}
+
+@media (max-width: 700px) {
+  .heist-desktop {
+    display: none;
+  }
+
+  .mobile-heist {
+    min-height: 100svh;
+
+    padding:
+      1rem
+      1.1rem
+      calc(
+        1rem +
+        env(
+          safe-area-inset-bottom
+        )
+      );
+
+    display: flex;
+
+    flex-direction: column;
+
+    background: #00539f;
+    color: white;
+  }
+
+  /* -----------------------
+     HEADER
+  ----------------------- */
+
+  .mobile-heist-header {
+    margin-bottom: 1rem;
+
+    display: grid;
+
+    grid-template-columns:
+      auto 1fr;
+
+    align-items: center;
+
+    gap: 1rem;
+  }
+
+  .mobile-heist-back {
+    padding: 0;
+
+    border: 0;
+
+    background:
+      transparent;
+
+    color:
+      rgba(
+        255,
+        255,
+        255,
+        0.82
+      );
+
+    font: inherit;
+    font-size: 0.9rem;
+    font-weight: 700;
+
+    cursor: pointer;
+  }
+
+  .mobile-heist-heading {
+    text-align: right;
+  }
+
+  .mobile-heist-heading p {
+    margin:
+      0 0 0.2rem;
+
+    color: #ffd900;
+
+    font-size: 0.65rem;
+    font-weight: 900;
+
+    letter-spacing:
+      0.15em;
+  }
+
+  .mobile-heist-heading h1 {
+    margin: 0;
+
+    color: white;
+
+    font-size:
+      clamp(
+        1.9rem,
+        8vw,
+        2.5rem
+      );
+
+    line-height: 0.95;
+
+    letter-spacing:
+      -0.055em;
+  }
+
+  /* -----------------------
+     PAGE
+  ----------------------- */
+
+  .mobile-heist-page {
+    width: 100%;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 0.8rem;
+  }
+
+  .mobile-heist-count {
+    display: flex;
+
+    align-items: baseline;
+
+    gap: 0.45rem;
+  }
+
+  .mobile-heist-count strong {
+    font-size: 1.5rem;
+
+    line-height: 1;
+
+    letter-spacing:
+      -0.04em;
+  }
+
+  .mobile-heist-count span {
+    color:
+      rgba(
+        255,
+        255,
+        255,
+        0.74
+      );
+
+    font-size: 0.82rem;
+    font-weight: 800;
+  }
+
+  /* -----------------------
+     CRIMSON REVEAL
+  ----------------------- */
+
+  .mobile-heist-reveal {
+    min-height: 170px;
+
+    padding:
+      1.35rem
+      1.25rem;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    align-items: center;
+
+    border-radius: 26px;
+
+    background: #ee1c2e;
+    color: white;
+
+    text-align: center;
+  }
+
+  .mobile-heist-reveal span {
+    margin-bottom: 0.55rem;
+
+    color:
+      rgba(
+        255,
+        255,
+        255,
+        0.78
+      );
+
+    font-size: 0.76rem;
+    font-weight: 900;
+
+    letter-spacing:
+      0.15em;
+
+    text-transform:
+      uppercase;
+  }
+
+  .mobile-heist-reveal strong {
+    color: white;
+
+    font-size:
+      clamp(
+        3.4rem,
+        15vw,
+        4.8rem
+      );
+
+    line-height: 0.88;
+
+    letter-spacing:
+      -0.07em;
+
+    white-space:
+      nowrap;
+  }
+
+  /* -----------------------
+     LIFETIME STICKERS
+  ----------------------- */
+
+  .mobile-heist-stat-grid {
+    display: grid;
+
+    grid-template-columns:
+      repeat(
+        2,
+        minmax(0, 1fr)
+      );
+
+    gap: 0.75rem;
+  }
+
+  .mobile-heist-stat {
+    min-height: 105px;
+
+    padding:
+      0.9rem
+      0.65rem;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    border-radius: 20px;
+
+    background: #ffd900;
+    color: #111;
+
+    text-align: center;
+  }
+
+  .mobile-heist-stat span {
+    margin-bottom: 0.35rem;
+
+    color:
+      rgba(
+        0,
+        0,
+        0,
+        0.58
+      );
+
+    font-size: 0.68rem;
+    font-weight: 900;
+
+    line-height: 1.2;
+  }
+
+  .mobile-heist-stat strong {
+    font-size:
+      clamp(
+        1.55rem,
+        7vw,
+        2rem
+      );
+
+    line-height: 1;
+
+    letter-spacing:
+      -0.05em;
+  }
+
+  /* -----------------------
+     STORY NAVIGATION
+  ----------------------- */
+
+  .mobile-heist-navigation {
+    padding-top: 0.15rem;
+
+    text-align: center;
+  }
+
+  .mobile-heist-navigation button {
+    padding:
+      0.7rem 1.15rem;
+
+    border: 0;
+
+    border-radius:
+      999px;
+
+    background: #ffd900;
+    color: #111;
+
+    font: inherit;
+    font-size: 0.8rem;
+    font-weight: 900;
+
+    cursor: pointer;
+  }
+
+  /* =====================================================
+     BIGGEST SAVING
+  ===================================================== */
+
+  .mobile-heist-biggest-page {
+    gap: 0.7rem;
+  }
+
+  .mobile-heist-date {
+    color:
+      rgba(
+        255,
+        255,
+        255,
+        0.76
+      );
+
+    font-size: 0.86rem;
+    font-weight: 800;
+
+    text-align: center;
+  }
+
+  .mobile-heist-saving-reveal {
+    min-height: 145px;
+  }
+
+  .mobile-heist-saving-reveal
+  strong {
+    font-size:
+      clamp(
+        3.8rem,
+        17vw,
+        5rem
+      );
+  }
+
+  /* -----------------------
+     PRODUCT STICKERS
+  ----------------------- */
+
+  .mobile-heist-products {
+    display: grid;
+
+    gap: 0.65rem;
+  }
+
+  .mobile-heist-product {
+    min-height: 86px;
+
+    padding:
+      0.85rem
+      1rem;
+
+    display: grid;
+
+    grid-template-columns:
+      minmax(
+        0,
+        1fr
+      )
+      auto;
+
+    grid-template-areas:
+      "role price"
+      "name price";
+
+    align-items: center;
+
+    column-gap: 1rem;
+
+    border-radius: 20px;
+
+    background: #ffd900;
+    color: #111;
+  }
+
+  .mobile-heist-product-role {
+    grid-area: role;
+
+    align-self: end;
+
+    color:
+      rgba(
+        0,
+        0,
+        0,
+        0.55
+      );
+
+    font-size: 0.64rem;
+    font-weight: 900;
+
+    letter-spacing:
+      0.13em;
+
+    text-transform:
+      uppercase;
+  }
+
+  .mobile-heist-product-name {
+    grid-area: name;
+
+    align-self: start;
+
+    min-width: 0;
+
+    font-size:
+      clamp(
+        1rem,
+        4.5vw,
+        1.25rem
+      );
+
+    line-height: 1.1;
+  }
+
+  .mobile-heist-product-price {
+    grid-area: price;
+
+    font-size:
+      clamp(
+        1.35rem,
+        6vw,
+        1.75rem
+      );
+
+    letter-spacing:
+      -0.04em;
+
+    white-space:
+      nowrap;
+  }
+
+  /* -----------------------
+     FINAL MATHS
+  ----------------------- */
+
+  .mobile-heist-price-summary {
+    padding-top: 0.2rem;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    gap: 0.8rem;
+
+    color: white;
+
+    text-align: center;
+  }
+
+  .mobile-heist-price-summary
+  > div {
+    display: flex;
+
+    flex-direction: column;
+  }
+
+  .mobile-heist-price-summary
+  strong {
+    font-size: 1.45rem;
+
+    line-height: 1;
+
+    letter-spacing:
+      -0.04em;
+  }
+
+  .mobile-heist-price-summary
+  div span {
+    margin-top: 0.2rem;
+
+    color:
+      rgba(
+        255,
+        255,
+        255,
+        0.68
+      );
+
+    font-size: 0.66rem;
+    font-weight: 800;
+  }
+
+  .mobile-heist-arrow {
+    color: #ffd900;
+
+    font-size: 1.5rem;
+    font-weight: 900;
+  }
+}
+
+@media (max-width: 700px) {
+.mobile-heist-products {
+  gap: 1.55rem;
+}
+
+.mobile-heist-product {
+  position: relative;
+}
+
+.mobile-heist-product:not(:last-child)::after {
+  content: '+';
+
+  position: absolute;
+
+  left: 50%;
+  bottom: -0.78rem;
+
+  z-index: 2;
+
+  color: white;
+
+  font-size: 2.1rem;
+  font-weight: 900;
+
+  line-height: 1;
+
+  transform:
+    translate(
+      -50%,
+      50%
+    );
+}
+
+  /* -----------------------
+     FINAL MATHS
+  ----------------------- */
+
+  .mobile-heist-price-summary {
+    padding-top: 0.35rem;
+
+    gap: 1rem;
+  }
+
+  .mobile-heist-price-summary
+  strong {
+    font-size: 3rem;
+
+    line-height: 1;
+
+    letter-spacing:
+      -0.04em;
+  }
+
+  .mobile-heist-price-summary
+  div span {
+    margin-top: 0.3rem;
+
+    color:
+      rgba(
+        255,
+        255,
+        255,
+        0.78
+      );
+
+    font-size: 1rem;
+    font-weight: 800;
+  }
+
+  .mobile-heist-arrow {
+    color: #ffd900;
+
+    font-size: 1.9rem;
+    font-weight: 900;
+  }
+}

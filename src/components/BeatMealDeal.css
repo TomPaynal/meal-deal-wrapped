@@ -261,11 +261,7 @@
 }
 
 .heist-coverage {
-  margin: 1.2rem 0 0;
-
-  color: #666;
-
-  font-size: 0.9rem;
+  display: none;
 }
 
 /* -------------------------
