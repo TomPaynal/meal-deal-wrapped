@@ -1,0 +1,391 @@
+.streak-shell {
+  min-height: 100vh;
+
+  padding:
+    clamp(
+      1.5rem,
+      4vw,
+      4rem
+    );
+
+  background: #00539f;
+  color: white;
+}
+
+.streak-content {
+  width:
+    min(
+      560px,
+      100%
+    );
+
+  margin: 0 auto;
+}
+
+/* -----------------------
+   HEADER
+----------------------- */
+
+.streak-header {
+  margin-bottom: 1rem;
+
+  display: grid;
+
+  grid-template-columns:
+    auto 1fr;
+
+  align-items: center;
+
+  gap: 1rem;
+}
+
+.streak-back {
+  padding: 0;
+
+  border: 0;
+
+  background: transparent;
+
+  color:
+    rgba(
+      255,
+      255,
+      255,
+      0.82
+    );
+
+  font: inherit;
+  font-weight: 700;
+
+  cursor: pointer;
+}
+
+.streak-heading {
+  text-align: right;
+}
+
+.streak-heading p {
+  margin:
+    0 0 0.2rem;
+
+  color: #ffd900;
+
+  font-size: 0.65rem;
+  font-weight: 900;
+
+  letter-spacing:
+    0.15em;
+}
+
+.streak-heading h1 {
+  margin: 0;
+
+  color: white;
+
+  font-size:
+    clamp(
+      1.9rem,
+      8vw,
+      2.5rem
+    );
+
+  line-height: 0.95;
+
+  letter-spacing:
+    -0.055em;
+}
+
+/* -----------------------
+   PILLS
+----------------------- */
+
+.streak-selector {
+  width: 100%;
+
+  margin-bottom: 0.9rem;
+
+  padding: 0.28rem;
+
+  display: flex;
+
+  gap: 0.2rem;
+
+  border-radius: 999px;
+
+  background:
+    rgba(
+      255,
+      255,
+      255,
+      0.14
+    );
+}
+
+.streak-pill {
+  flex: 1;
+
+  padding:
+    0.7rem
+    0.35rem;
+
+  border: 0;
+
+  border-radius: 999px;
+
+  background: transparent;
+
+  color:
+    rgba(
+      255,
+      255,
+      255,
+      0.72
+    );
+
+  font: inherit;
+  font-size: 0.92rem;
+  font-weight: 800;
+
+  cursor: pointer;
+}
+
+.streak-pill-active {
+  background: #ffd900;
+  color: #111;
+}
+
+/* -----------------------
+   CRIMSON HERO
+----------------------- */
+
+.streak-reveal {
+  min-height: 210px;
+
+  padding:
+    1.25rem;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  justify-content: center;
+
+  border-radius: 26px;
+
+  background: #ee1c2e;
+  color: white;
+
+  text-align: center;
+}
+
+.streak-reveal span {
+  color:
+    rgba(
+      255,
+      255,
+      255,
+      0.78
+    );
+
+  font-size: 0.72rem;
+  font-weight: 900;
+
+  letter-spacing:
+    0.15em;
+}
+
+.streak-reveal strong {
+  margin:
+    0.2rem 0 -0.05rem;
+
+  font-size:
+    clamp(
+      5rem,
+      24vw,
+      7.5rem
+    );
+
+  line-height: 0.85;
+
+  letter-spacing:
+    -0.08em;
+}
+
+.streak-reveal em {
+  color: white;
+
+  font-size:
+    clamp(
+      1.6rem,
+      8vw,
+      2.4rem
+    );
+
+  font-style: normal;
+  font-weight: 900;
+
+  letter-spacing:
+    -0.04em;
+}
+
+/* -----------------------
+   YELLOW PRODUCT STICKER
+----------------------- */
+
+.streak-product {
+  min-height: 130px;
+
+  margin-top: 0.8rem;
+
+  padding:
+    1rem
+    1.1rem;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  justify-content: center;
+
+  border-radius: 22px;
+
+  background: #ffd900;
+  color: #111;
+
+  text-align: center;
+}
+
+.streak-product > span {
+  margin-bottom: 0.35rem;
+
+  color:
+    rgba(
+      0,
+      0,
+      0,
+      0.55
+    );
+
+  font-size: 0.68rem;
+  font-weight: 900;
+
+  letter-spacing:
+    0.14em;
+
+  text-transform: uppercase;
+}
+
+.streak-product > strong {
+  font-size:
+    clamp(
+      1.5rem,
+      7vw,
+      2rem
+    );
+
+  line-height: 1.05;
+
+  letter-spacing:
+    -0.04em;
+}
+
+.streak-product small {
+  margin-top: 0.5rem;
+
+  color:
+    rgba(
+      0,
+      0,
+      0,
+      0.58
+    );
+
+  font-size: 0.76rem;
+  font-weight: 800;
+}
+
+/* -----------------------
+   SUPPORT COPY
+----------------------- */
+
+.streak-copy {
+  margin:
+    0.8rem 0 0;
+
+  color:
+    rgba(
+      255,
+      255,
+      255,
+      0.78
+    );
+
+  font-size: 0.9rem;
+  font-weight: 700;
+
+  text-align: center;
+}
+
+.streak-copy strong {
+  color: white;
+}
+
+.streak-tie {
+  margin:
+    0.55rem 0 0;
+
+  color:
+    rgba(
+      255,
+      255,
+      255,
+      0.55
+    );
+
+  font-size: 0.68rem;
+  font-weight: 700;
+
+  text-align: center;
+}
+
+/* -----------------------
+   EMPTY
+----------------------- */
+
+.streak-empty {
+  padding: 5rem 1rem;
+
+  color:
+    rgba(
+      255,
+      255,
+      255,
+      0.75
+    );
+
+  text-align: center;
+}
+
+/* -----------------------
+   PHONE
+----------------------- */
+
+@media (max-width: 700px) {
+  .streak-shell {
+    min-height: 100svh;
+
+    padding:
+      1rem
+      1.1rem
+      calc(
+        1rem +
+        env(
+          safe-area-inset-bottom
+        )
+      );
+  }
+}

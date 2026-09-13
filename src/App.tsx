@@ -29,6 +29,10 @@ import {
   FavouritesByPeriod,
 } from './components/FavouritesByPeriod'
 
+import {
+  LongestStreak,
+} from './components/LongestStreak'
+
 import './App.css'
 
 type Screen =
@@ -36,6 +40,7 @@ type Screen =
   | 'race'
   | 'heist'
   | 'history'
+  | 'streaks'
   | 'favourites'
   | 'diagnostics'
 
@@ -99,6 +104,19 @@ function App() {
   ) {
     return (
       <ThroughTheYearsExperience
+        dataset={demoDataset}
+        onBack={() =>
+          setScreen('home')
+        }
+      />
+    )
+  }
+
+  if (
+    screen === 'streaks'
+  ) {
+    return (
+      <LongestStreak
         dataset={demoDataset}
         onBack={() =>
           setScreen('home')
@@ -212,6 +230,17 @@ function App() {
             }
           >
             Through the years
+          </button>
+
+          <button
+            className="demo-button"
+            onClick={() =>
+              setScreen(
+                'streaks',
+              )
+            }
+          >
+            Longest streak
           </button>
 
           <button
