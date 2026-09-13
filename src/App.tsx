@@ -1,9 +1,24 @@
 import { useState } from 'react'
 
-import { demoDataset } from './data/demoData'
+import {
+  demoDataset,
+} from './data/demoData'
 
-import { MealDealRace } from './components/MealDealRace'
-import { ComboHallOfFame } from './components/ComboHallOfFame'
+import {
+  demoDiagnosticCases,
+} from './data/demoEdgeCases'
+
+import {
+  MealDealRace,
+} from './components/MealDealRace'
+
+import {
+  ComboHallOfFame,
+} from './components/ComboHallOfFame'
+
+import {
+  ResolverDiagnostics,
+} from './components/ResolverDiagnostics'
 
 import './App.css'
 
@@ -11,6 +26,7 @@ type Screen =
   | 'home'
   | 'race'
   | 'combos'
+  | 'diagnostics'
 
 function App() {
   const [fileName, setFileName] =
@@ -20,7 +36,8 @@ function App() {
     useState<Screen>('home')
 
   function handleFileChange(
-    event: React.ChangeEvent<HTMLInputElement>,
+    event:
+      React.ChangeEvent<HTMLInputElement>,
   ) {
     const file =
       event.target.files?.[0]
@@ -45,6 +62,23 @@ function App() {
     return (
       <ComboHallOfFame
         dataset={demoDataset}
+        onBack={() =>
+          setScreen('home')
+        }
+      />
+    )
+  }
+
+  if (
+    screen ===
+    'diagnostics'
+  ) {
+    return (
+      <ResolverDiagnostics
+        dataset={demoDataset}
+        cases={
+          demoDiagnosticCases
+        }
         onBack={() =>
           setScreen('home')
         }
@@ -99,6 +133,17 @@ function App() {
             }
           >
             Preview combos
+          </button>
+
+          <button
+            className="demo-button"
+            onClick={() =>
+              setScreen(
+                'diagnostics',
+              )
+            }
+          >
+            Resolver diagnostics
           </button>
         </div>
 

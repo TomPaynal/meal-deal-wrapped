@@ -5,6 +5,10 @@ import type {
   Transaction,
 } from '../types/data'
 
+import {
+  demoEdgeCaseTransactions,
+} from './demoEdgeCases'
+
 // Completely synthetic demo data.
 // None of these transactions represent real purchases.
 
@@ -199,7 +203,10 @@ const shelfPricesPence: Record<string, number> = {
 }
 
 // Deliberately constructed to give our demo bar-chart race a story.
-const mainCountsByYear: Record<number, Record<string, number>> = {
+const mainCountsByYear: Record<
+  number,
+  Record<string, number>
+> = {
   2014: {
     'main-chicken-bacon': 14,
     'main-blt': 8,
@@ -312,118 +319,263 @@ function makeRandom(seed: number) {
   let value = seed >>> 0
 
   return () => {
-    value = (value * 1664525 + 1013904223) >>> 0
+    value =
+      (value * 1664525 + 1013904223) >>> 0
+
     return value / 4294967296
   }
 }
 
-function shuffled<T>(items: T[], seed: number): T[] {
+function shuffled<T>(
+  items: T[],
+  seed: number,
+): T[] {
   const result = [...items]
   const random = makeRandom(seed)
 
-  for (let i = result.length - 1; i > 0; i -= 1) {
-    const j = Math.floor(random() * (i + 1))
-    ;[result[i], result[j]] = [result[j], result[i]]
+  for (
+    let i = result.length - 1;
+    i > 0;
+    i -= 1
+  ) {
+    const j =
+      Math.floor(
+        random() * (i + 1),
+      )
+
+    ;[
+      result[i],
+      result[j],
+    ] = [
+      result[j],
+      result[i],
+    ]
   }
 
   return result
 }
 
-function createDemoTransactions(): Transaction[] {
-  const transactions: Transaction[] = []
+function createDemoTransactions():
+  Transaction[] {
+  const transactions:
+    Transaction[] = []
 
-  for (const [yearText, counts] of Object.entries(mainCountsByYear)) {
-    const year = Number(yearText)
+  for (
+    const [
+      yearText,
+      counts,
+    ] of Object.entries(
+      mainCountsByYear,
+    )
+  ) {
+    const year =
+      Number(yearText)
+
     const mains: string[] = []
 
-    for (const [mainId, count] of Object.entries(counts)) {
-      for (let i = 0; i < count; i += 1) {
+    for (
+      const [
+        mainId,
+        count,
+      ] of Object.entries(counts)
+    ) {
+      for (
+        let i = 0;
+        i < count;
+        i += 1
+      ) {
         mains.push(mainId)
       }
     }
 
-    const random = makeRandom(year * 7919)
-    const shuffledMains = shuffled(mains, year)
+    const random =
+      makeRandom(year * 7919)
 
-    shuffledMains.forEach((mainId, index) => {
-      const sideId =
-        sidePool[Math.floor(random() * sidePool.length)]
+    const shuffledMains =
+      shuffled(mains, year)
 
-      const drinkId =
-        drinkPool[Math.floor(random() * drinkPool.length)]
+    shuffledMains.forEach(
+      (mainId, index) => {
+        const sideId =
+          sidePool[
+            Math.floor(
+              random() *
+                sidePool.length,
+            )
+          ]
 
-      const fractionThroughYear =
-        (index + 1) / (shuffledMains.length + 1)
+        const drinkId =
+          drinkPool[
+            Math.floor(
+              random() *
+                drinkPool.length,
+            )
+          ]
 
-      const date = new Date(Date.UTC(year, 0, 1))
-      date.setUTCDate(
-        1 + Math.floor(fractionThroughYear * 364),
-      )
+        const fractionThroughYear =
+          (index + 1) /
+          (
+            shuffledMains.length +
+            1
+          )
 
-      date.setUTCHours(
-        11 + Math.floor(random() * 4),
-        Math.floor(random() * 60),
-      )
+        const date =
+          new Date(
+            Date.UTC(
+              year,
+              0,
+              1,
+            ),
+          )
 
-      const shelfTotalPence =
-        (shelfPricesPence[mainId] ?? 0) +
-        (shelfPricesPence[sideId] ?? 0) +
-        (shelfPricesPence[drinkId] ?? 0)
+        date.setUTCDate(
+          1 +
+            Math.floor(
+              fractionThroughYear *
+                364,
+            ),
+        )
 
-      // Demo price only. Real prices will come from Tesco data.
-      const paidTotalPence = 340
+        date.setUTCHours(
+          11 +
+            Math.floor(
+              random() * 4,
+            ),
 
-      transactions.push({
-        id: `demo-${year}-${String(index + 1).padStart(3, '0')}`,
-        occurredAt: date.toISOString(),
+          Math.floor(
+            random() * 60,
+          ),
+        )
 
-        store:
-          stores[
-            Math.floor(random() * stores.length)
+        const shelfTotalPence =
+          (
+            shelfPricesPence[
+              mainId
+            ] ?? 0
+          ) +
+          (
+            shelfPricesPence[
+              sideId
+            ] ?? 0
+          ) +
+          (
+            shelfPricesPence[
+              drinkId
+            ] ?? 0
+          )
+
+        // Demo price only.
+        // Real prices will come from Tesco data.
+        const paidTotalPence = 340
+
+        transactions.push({
+          id:
+            `demo-${year}-${String(
+              index + 1,
+            ).padStart(
+              3,
+              '0',
+            )}`,
+
+          occurredAt:
+            date.toISOString(),
+
+          store:
+            stores[
+              Math.floor(
+                random() *
+                  stores.length,
+              )
+            ],
+
+          items: [
+            {
+              productId:
+                mainId,
+
+              quantity: 1,
+
+              shelfPricePence:
+                shelfPricesPence[
+                  mainId
+                ],
+            },
+
+            {
+              productId:
+                sideId,
+
+              quantity: 1,
+
+              shelfPricePence:
+                shelfPricesPence[
+                  sideId
+                ],
+            },
+
+            {
+              productId:
+                drinkId,
+
+              quantity: 1,
+
+              shelfPricePence:
+                shelfPricesPence[
+                  drinkId
+                ],
+            },
           ],
 
-        items: [
-          {
-            productId: mainId,
-            quantity: 1,
-            shelfPricePence:
-              shelfPricesPence[mainId],
-          },
-          {
-            productId: sideId,
-            quantity: 1,
-            shelfPricePence:
-              shelfPricesPence[sideId],
-          },
-          {
-            productId: drinkId,
-            quantity: 1,
-            shelfPricePence:
-              shelfPricesPence[drinkId],
-          },
-        ],
+          totals: {
+            shelfTotalPence,
+            paidTotalPence,
 
-        totals: {
-          shelfTotalPence,
-          paidTotalPence,
-          savingPence:
-            shelfTotalPence - paidTotalPence,
-        },
-      })
-    })
+            savingPence:
+              shelfTotalPence -
+              paidTotalPence,
+          },
+        })
+      },
+    )
   }
 
   return transactions.sort(
     (a, b) =>
-      new Date(a.occurredAt).getTime() -
-      new Date(b.occurredAt).getTime(),
+      new Date(
+        a.occurredAt,
+      ).getTime() -
+      new Date(
+        b.occurredAt,
+      ).getTime(),
   )
 }
 
-export const demoDataset: MealDealDataset = {
+export const demoDataset:
+  MealDealDataset = {
   schemaVersion: 1,
+
   source: 'demo',
+
   customerName: 'Demo Person',
+
   products,
-  transactions: createDemoTransactions(),
+
+  transactions: [
+    ...createDemoTransactions(),
+
+    /*
+     * Deliberately ambiguous / awkward
+     * baskets used by the resolver
+     * diagnostics screen.
+     */
+    ...demoEdgeCaseTransactions,
+  ].sort(
+    (a, b) =>
+      new Date(
+        a.occurredAt,
+      ).getTime() -
+      new Date(
+        b.occurredAt,
+      ).getTime(),
+  ),
 }
