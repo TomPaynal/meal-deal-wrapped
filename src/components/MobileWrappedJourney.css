@@ -1,11 +1,11 @@
 .mobile-wrapped-journey {
-  min-height: 100svh;
+  min-height: 100dvh;
 
   background: #00539f;
 }
 
 .wrapped-journey {
-  min-height: 100svh;
+  min-height: 100dvh;
 
   background: #00539f;
 }
@@ -107,7 +107,7 @@
 ----------------------- */
 
 .wrapped-unavailable {
-  min-height: 100svh;
+  min-height: 100dvh;
 
   padding:
     2rem
