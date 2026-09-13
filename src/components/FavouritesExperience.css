@@ -1,0 +1,17 @@
+.favourites-experience-mobile {
+  display: none;
+}
+
+.favourites-experience-desktop {
+  display: block;
+}
+
+@media (max-width: 700px) {
+  .favourites-experience-mobile {
+    display: block;
+  }
+
+  .favourites-experience-desktop {
+    display: none;
+  }
+}

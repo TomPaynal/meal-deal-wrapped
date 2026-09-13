@@ -26,8 +26,8 @@ import {
 } from './components/ThroughTheYearsExperience'
 
 import {
-  FavouritesByPeriod,
-} from './components/FavouritesByPeriod'
+  FavouritesExperience,
+} from './components/FavouritesExperience'
 
 import {
   LongestStreak,
@@ -130,7 +130,7 @@ function App() {
     'favourites'
   ) {
     return (
-      <FavouritesByPeriod
+      <FavouritesExperience
         dataset={demoDataset}
         onBack={() =>
           setScreen('home')

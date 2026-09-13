@@ -1,0 +1,453 @@
+.mobile-favourites {
+  display: none;
+}
+
+@media (max-width: 700px) {
+  .mobile-favourites {
+    width: 100%;
+
+    min-height: 100svh;
+
+    padding:
+      1rem
+      1.1rem
+      calc(
+        1rem +
+        env(
+          safe-area-inset-bottom
+        )
+      );
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 0.8rem;
+
+    background: #00539f;
+    color: white;
+  }
+
+  /* -----------------------
+     HEADER
+  ----------------------- */
+
+  .mobile-favourites-header {
+    display: grid;
+
+    grid-template-columns:
+      auto 1fr;
+
+    align-items: center;
+
+    gap: 1rem;
+  }
+
+  .mobile-favourites-back {
+    padding: 0;
+
+    border: 0;
+
+    background:
+      transparent;
+
+    color:
+      rgba(
+        255,
+        255,
+        255,
+        0.82
+      );
+
+    font: inherit;
+    font-size: 0.9rem;
+    font-weight: 700;
+
+    cursor: pointer;
+  }
+
+  .mobile-favourites-heading {
+    text-align: right;
+  }
+
+  .mobile-favourites-heading p {
+    margin:
+      0 0 0.2rem;
+
+    color: #ffd900;
+
+    font-size: 0.65rem;
+    font-weight: 900;
+
+    letter-spacing:
+      0.15em;
+  }
+
+  .mobile-favourites-heading h1 {
+    margin: 0;
+
+    color: white;
+
+    font-size:
+      clamp(
+        1.9rem,
+        8vw,
+        2.5rem
+      );
+
+    line-height: 0.95;
+
+    letter-spacing:
+      -0.055em;
+  }
+
+  /* -----------------------
+     SELECTOR
+  ----------------------- */
+
+  .mobile-favourites-selector {
+    width: 100%;
+
+    padding: 0.28rem;
+
+    display: flex;
+
+    gap: 0.15rem;
+
+    border-radius: 999px;
+
+    background:
+      rgba(
+        255,
+        255,
+        255,
+        0.14
+      );
+  }
+
+  .mobile-favourites-pill {
+    flex: 1;
+
+    padding:
+      0.7rem
+      0.25rem;
+
+    border: 0;
+
+    border-radius: 999px;
+
+    background:
+      transparent;
+
+    color:
+      rgba(
+        255,
+        255,
+        255,
+        0.72
+      );
+
+    font: inherit;
+    font-size: 0.85rem;
+    font-weight: 800;
+
+    cursor: pointer;
+  }
+
+  .mobile-favourites-pill-active {
+    background: #ffd900;
+    color: #111;
+  }
+
+  /* -----------------------
+     WINNER
+  ----------------------- */
+
+  .mobile-favourites-winner {
+    min-height: 230px;
+
+    padding:
+      1.1rem
+      1.2rem;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 26px;
+
+    background: #ee1c2e;
+    color: white;
+
+    text-align: center;
+  }
+
+  .mobile-favourites-winner-rank {
+    margin-bottom: 0.45rem;
+
+    color:
+      rgba(
+        255,
+        255,
+        255,
+        0.72
+      );
+
+    font-size: 2.7rem;
+    font-weight: 900;
+
+    line-height: 0.9;
+
+    letter-spacing:
+      -0.06em;
+  }
+
+  .mobile-favourites-winner-name {
+    max-width: 100%;
+
+    font-size:
+      clamp(
+        1.8rem,
+        8vw,
+        2.5rem
+      );
+
+    line-height: 1;
+
+    letter-spacing:
+      -0.05em;
+  }
+
+  .mobile-favourites-winner-stats {
+    margin-top: 0.8rem;
+
+    display: flex;
+
+    align-items: baseline;
+
+    justify-content: center;
+
+    gap: 0.4rem;
+  }
+
+  .mobile-favourites-winner-stats
+  strong {
+    font-size: 2.2rem;
+
+    line-height: 1;
+
+    letter-spacing:
+      -0.05em;
+  }
+
+  .mobile-favourites-winner-stats
+  span {
+    font-size: 0.9rem;
+    font-weight: 800;
+  }
+
+  .mobile-favourites-winner
+  > small {
+    margin-top: 0.2rem;
+
+    color:
+      rgba(
+        255,
+        255,
+        255,
+        0.68
+      );
+
+    font-size: 0.76rem;
+    font-weight: 800;
+  }
+
+  /* -----------------------
+     MEAL COMBO
+  ----------------------- */
+
+  .mobile-favourites-meal {
+    display: flex;
+
+    flex-wrap: wrap;
+
+    align-items: center;
+
+    gap: 0.25rem;
+
+    line-height: 1.15;
+  }
+
+  .mobile-favourites-meal
+  strong {
+    font-size: 0.82rem;
+  }
+
+  .mobile-favourites-meal
+  span {
+    color:
+      rgba(
+        0,
+        0,
+        0,
+        0.45
+      );
+
+    font-weight: 900;
+  }
+
+  .mobile-favourites-meal-hero {
+    max-width: 100%;
+
+    flex-direction: column;
+
+    flex-wrap: nowrap;
+
+    gap: 0.1rem;
+  }
+
+  .mobile-favourites-meal-hero
+  strong {
+    color: white;
+
+    font-size:
+      clamp(
+        1.05rem,
+        5vw,
+        1.35rem
+      );
+
+    line-height: 1.15;
+  }
+
+  .mobile-favourites-meal-hero
+  span {
+    color: #ffd900;
+
+    font-size: 1.55rem;
+    font-weight: 900;
+
+    line-height: 0.8;
+  }
+
+  /* -----------------------
+     #2–#5
+  ----------------------- */
+
+  .mobile-favourites-runners {
+    display: grid;
+
+    gap: 0.55rem;
+  }
+
+  .mobile-favourites-runner {
+    min-height: 72px;
+
+    padding:
+      0.7rem
+      0.85rem;
+
+    display: grid;
+
+    grid-template-columns:
+      38px
+      minmax(
+        0,
+        1fr
+      )
+      48px;
+
+    align-items: center;
+
+    gap: 0.55rem;
+
+    border-radius: 18px;
+
+    background: #ffd900;
+    color: #111;
+  }
+
+  .mobile-favourites-runner-rank {
+    color:
+      rgba(
+        0,
+        0,
+        0,
+        0.5
+      );
+
+    font-size: 1.15rem;
+    font-weight: 900;
+  }
+
+  .mobile-favourites-runner-choice {
+    min-width: 0;
+  }
+
+  .mobile-favourites-runner-choice
+  > strong {
+    display: block;
+
+    font-size:
+      clamp(
+        0.95rem,
+        4vw,
+        1.1rem
+      );
+
+    line-height: 1.1;
+  }
+
+  .mobile-favourites-runner-stat {
+    text-align: right;
+  }
+
+  .mobile-favourites-runner-stat
+  strong {
+    display: block;
+
+    font-size: 1.25rem;
+
+    line-height: 1;
+  }
+
+  .mobile-favourites-runner-stat
+  span {
+    display: block;
+
+    margin-top: 0.18rem;
+
+    color:
+      rgba(
+        0,
+        0,
+        0,
+        0.52
+      );
+
+    font-size: 0.66rem;
+    font-weight: 800;
+  }
+
+  /* -----------------------
+     EMPTY
+  ----------------------- */
+
+  .mobile-favourites-empty {
+    margin: auto;
+
+    color:
+      rgba(
+        255,
+        255,
+        255,
+        0.75
+      );
+
+    text-align: center;
+  }
+}
