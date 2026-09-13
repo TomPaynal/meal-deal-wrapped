@@ -164,15 +164,20 @@
 }
 
 .race-date {
-  min-width: 170px;
-  text-align: right;
+  min-width: 190px;
+
+  color: #2864dc;
+
   font-size: clamp(
     1.2rem,
     3vw,
     2rem
   );
+
   font-weight: 800;
-  color: #2864dc;
+
+  text-align: right;
+  white-space: nowrap;
 }
 
 .race-track {
@@ -331,8 +336,16 @@
   }
 
   .race-date {
-    min-width: 0;
-  }
+    min-width: 145px;
+
+    font-size: clamp(
+      1rem,
+      4.5vw,
+      1.3rem
+    );
+
+  white-space: nowrap;
+}
 
   .race-row {
     grid-template-columns:
