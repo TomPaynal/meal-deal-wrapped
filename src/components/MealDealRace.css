@@ -1,725 +1,346 @@
-.favourites-shell {
+.race-shell {
   min-height: 100vh;
   padding: clamp(1.5rem, 4vw, 4rem);
-
   background: #f8f6f0;
   color: #111;
 }
 
-.favourites-header {
+.race-page-header {
   width: min(1100px, 100%);
-  margin: 0 auto 2.5rem;
-
+  margin: 0 auto 1.5rem;
   display: grid;
   grid-template-columns: 1fr auto 1fr;
   align-items: center;
 }
 
-.favourites-heading {
+.race-page-heading {
   text-align: center;
 }
 
-.favourites-heading h1 {
-  margin: 0;
-
-  font-size: clamp(
-    2rem,
-    5vw,
-    3.5rem
-  );
-
-  letter-spacing: -0.05em;
-}
-
-.favourites-back {
+.race-back {
   justify-self: start;
-
   border: 0;
   background: transparent;
-
   color: #555;
-
   font: inherit;
   font-weight: 700;
-
   cursor: pointer;
 }
 
-.favourites-eyebrow {
-  margin: 0 0 0.5rem;
+.race-back:hover {
+  color: #111;
+}
 
+.race-eyebrow {
+  margin: 0 0 0.4rem;
   color: #e43b35;
-
   font-size: 0.75rem;
-  font-weight: 900;
+  font-weight: 800;
   letter-spacing: 0.16em;
 }
 
-.favourites-intro {
-  width: min(1000px, 100%);
-  margin: 0 auto 1.5rem;
-
-  text-align: center;
-}
-
-.favourites-intro p:last-child {
+.race-title {
   margin: 0;
-
-  color: #555;
-
-  font-size: 1.05rem;
-}
-
-/* -------------------------
-   CONTROLS
-------------------------- */
-
-.favourites-controls {
-  width: min(1000px, 100%);
-  margin: 0 auto 2.5rem;
-
-  padding: 1rem;
-
-  display: flex;
-  flex-wrap: wrap;
-  align-items: end;
-
-  gap: 1rem 2rem;
-
-  border-radius: 20px;
-
-  background: white;
-}
-
-.favourites-control-group > span {
-  display: block;
-
-  margin-bottom: 0.45rem;
-
-  color: #666;
-
-  font-size: 0.7rem;
-  font-weight: 900;
-  letter-spacing: 0.1em;
-
-  text-transform: uppercase;
-}
-
-.favourites-control-group > div {
-  display: flex;
-
-  gap: 0.4rem;
-}
-
-.favourites-control-button {
-  padding: 0.55rem 0.9rem;
-
-  border: 0;
-  border-radius: 999px;
-
-  background: #efede7;
-  color: #555;
-
-  font: inherit;
-  font-size: 0.85rem;
-  font-weight: 800;
-
-  cursor: pointer;
-}
-
-.favourites-control-button:hover {
-  color: #111;
-}
-
-.favourites-control-button-active {
-  background: #2864dc;
-  color: white;
-}
-
-.favourites-control-button-active:hover {
-  color: white;
-}
-
-.favourites-date-range {
-  display: flex;
-
-  gap: 0.7rem;
-}
-
-.favourites-date-range label {
-  display: grid;
-
-  gap: 0.35rem;
-
-  color: #666;
-
-  font-size: 0.7rem;
-  font-weight: 800;
-
-  text-transform: uppercase;
-}
-
-.favourites-date-range input {
-  padding: 0.55rem 0.7rem;
-
-  border: 1px solid #ddd8ce;
-  border-radius: 10px;
-
-  background: #f8f6f0;
-  color: #111;
-
-  font: inherit;
-}
-
-/* -------------------------
-   PERIOD HEADING
-------------------------- */
-
-.favourites-podium-section {
-  width: min(1000px, 100%);
-  margin: 0 auto;
-}
-
-.favourites-period-heading {
-  margin-bottom: 1.5rem;
-
-  text-align: center;
-}
-
-.favourites-period-heading h2 {
-  margin: 0;
-
   font-size: clamp(
     2rem,
     5vw,
     3.5rem
   );
-
   letter-spacing: -0.05em;
 }
 
-/* -------------------------
-   PODIUM
-------------------------- */
-
-.favourites-podium-stack {
-  display: grid;
-
-  gap: 1.25rem;
+.race-selector {
+  width: fit-content;
+  margin: 0 auto 2.5rem;
+  padding: 0.35rem;
+  display: flex;
+  gap: 0.25rem;
+  border-radius: 999px;
+  background: #e8e4dc;
 }
 
-.favourites-podium-card {
-  width: 100%;
-  margin-inline: auto;
+.race-selector-button {
+  border: 0;
+  border-radius: 999px;
+  padding: 0.75rem 1.2rem;
+  background: transparent;
+  color: #666;
+  font: inherit;
+  font-weight: 800;
+  cursor: pointer;
+  transition:
+    background 150ms ease,
+    color 150ms ease,
+    transform 150ms ease;
+}
 
-  overflow: hidden;
+.race-selector-button:hover {
+  color: #111;
+}
 
-  border-radius: 32px;
-
-  background: #2864dc;
+.race-selector-button.active {
+  background: #111;
   color: white;
 }
 
-.favourites-podium-first {
-  padding:
-    2.1rem
-    clamp(1.5rem, 4vw, 3rem)
-    3rem;
+.race-ready {
+  min-height: calc(
+    100vh - 15rem
+  );
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  text-align: center;
 }
 
-.favourites-podium-second {
-  width: 92%;
-
-  padding:
-    1.7rem
-    clamp(1.3rem, 3vw, 2.4rem)
-    2.2rem;
-
-  border-radius: 28px;
+.race-ready-title {
+  margin: 0;
+  max-width: 800px;
+  font-size: clamp(
+    4rem,
+    11vw,
+    8rem
+  );
+  line-height: 0.86;
+  letter-spacing: -0.07em;
 }
 
-.favourites-podium-third {
-  width: 84%;
-
-  padding:
-    1.45rem
-    clamp(1.1rem, 3vw, 2rem)
-    1.9rem;
-
-  border-radius: 25px;
+.race-ready-title span {
+  display: block;
+  color: #2864dc;
 }
 
-.favourites-podium-topline {
-  margin-bottom: 1.8rem;
+.race-ready-copy {
+  max-width: 520px;
+  margin: 2rem auto;
+  color: #555;
+  font-size: 1.15rem;
+  line-height: 1.6;
+}
 
+.race-start {
+  border: 0;
+  border-radius: 999px;
+  padding: 1.1rem 2rem;
+  background: #111;
+  color: white;
+  font: inherit;
+  font-size: 1.05rem;
+  font-weight: 900;
+  cursor: pointer;
+  transition:
+    transform 150ms ease,
+    background 150ms ease;
+}
+
+.race-start:hover {
+  transform: translateY(-2px);
+  background: #2864dc;
+}
+
+.race-warning {
+  margin-top: 1rem;
+  color: #888;
+  font-size: 0.8rem;
+}
+
+.race-live-heading {
+  width: min(1000px, 100%);
+  margin: 0 auto 2rem;
   display: flex;
   justify-content: space-between;
-  align-items: center;
-
+  align-items: end;
   gap: 2rem;
 }
 
-.favourites-podium-rank {
-  font-size: clamp(
-    3rem,
-    8vw,
-    6rem
-  );
-
-  font-weight: 900;
-  line-height: 0.8;
-  letter-spacing: -0.08em;
-
-  color:
-    rgba(
-      255,
-      255,
-      255,
-      0.55
-    );
-}
-
-.favourites-podium-second
-.favourites-podium-rank {
-  font-size: clamp(
-    2.4rem,
-    6vw,
-    4.5rem
-  );
-}
-
-.favourites-podium-third
-.favourites-podium-rank {
+.race-live-title {
+  margin: 0;
   font-size: clamp(
     2rem,
     5vw,
-    3.7rem
+    3.5rem
   );
-}
-
-.favourites-podium-count {
-  text-align: right;
-}
-
-.favourites-podium-count strong {
-  display: block;
-
-  font-size: clamp(
-    2rem,
-    5vw,
-    4rem
-  );
-
-  line-height: 0.9;
   letter-spacing: -0.05em;
 }
 
-.favourites-podium-count span {
-  display: block;
-
-  margin-top: 0.35rem;
-
-  font-size: 0.85rem;
-  font-weight: 700;
-}
-
-.favourites-podium-count small {
-  display: block;
-
-  margin-top: 0.25rem;
-
-  font-size: 0.7rem;
-  font-weight: 700;
-
-  opacity: 0.68;
-}
-
-.favourites-podium-second
-.favourites-podium-count strong {
+.race-date {
+  min-width: 170px;
+  text-align: right;
   font-size: clamp(
-    1.7rem,
-    4vw,
-    3rem
+    1.2rem,
+    3vw,
+    2rem
   );
+  font-weight: 800;
+  color: #2864dc;
 }
 
-.favourites-podium-third
-.favourites-podium-count strong {
-  font-size: clamp(
-    1.5rem,
-    3.5vw,
-    2.5rem
-  );
-}
-
-/* -------------------------
-   PRODUCT BLOCKS
-------------------------- */
-
-.favourites-meal-products {
-  display: grid;
-
-  grid-template-columns:
-    1fr auto 1fr auto 1fr;
-
-  align-items: stretch;
-
-  gap: 1rem;
-}
-
-.favourites-single-product {
-  width: min(520px, 100%);
+.race-track {
+  position: relative;
+  width: min(1000px, 100%);
   margin: 0 auto;
+  overflow: hidden;
 }
 
-.favourites-product {
-  min-height: 145px;
-
+.race-row {
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 64px;
   display: grid;
-
-  grid-template-rows:
-    1.5rem 1fr;
-
+  grid-template-columns:
+    42px 1fr 70px;
   align-items: center;
-  justify-items: center;
+  gap: 1rem;
 
-  padding: 1.4rem;
+  transition:
+    transform 360ms
+      cubic-bezier(
+        0.22,
+        1,
+        0.36,
+        1
+      ),
+    opacity 220ms ease;
 
-  border-radius: 24px;
+  will-change: transform;
+}
+
+.race-rank {
+  text-align: right;
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #777;
+}
+
+.race-bar-zone {
+  position: relative;
+  height: 54px;
+  overflow: hidden;
+  border-radius: 12px;
+}
+
+.race-bar {
+  position: absolute;
+  inset: 0 auto 0 0;
+  border-radius: 12px;
+  background: #2864dc;
+  will-change: width;
+}
+
+.race-name {
+  position: absolute;
+
+  /* Explicitly cancel any old stretching behaviour */
+  inset: auto;
+  left: 0.7rem;
+  top: 50%;
+  right: auto;
+
+  transform: translateY(-50%);
+
+  display: inline-flex;
+  align-items: center;
+
+  /* This is the important bit */
+  width: fit-content;
+  max-width: calc(100% - 1.4rem);
+
+  padding: 0.28rem 0.65rem;
 
   background: #ffd900;
   color: #111;
+  border-radius: 999px;
 
-  text-align: center;
+  font-size: clamp(
+    0.85rem,
+    2vw,
+    1.1rem
+  );
+  font-weight: 800;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  pointer-events: none;
 }
 
-.favourites-podium-second
-.favourites-product {
-  min-height: 125px;
-}
-
-.favourites-podium-third
-.favourites-product {
-  min-height: 110px;
-}
-
-.favourites-product-role {
-  align-self: start;
-
-  font-size: 0.9rem;
+.race-count {
+  font-size: 1.45rem;
   font-weight: 900;
-  letter-spacing: 0.13em;
-
-  text-transform: uppercase;
-
-  color:
-    rgba(
-      0,
-      0,
-      0,
-      0.62
-    );
+  font-variant-numeric:
+    tabular-nums;
 }
 
-.favourites-podium-second
-.favourites-product-role {
-  font-size: 0.82rem;
-}
-
-.favourites-podium-third
-.favourites-product-role {
-  font-size: 0.78rem;
-}
-
-.favourites-product strong {
-  width: 100%;
-
-  align-self: center;
-
-  font-size: clamp(
-    1.15rem,
-    3vw,
-    1.7rem
-  );
-
-  line-height: 1.1;
-
+.race-footer {
+  width: min(1000px, 100%);
+  margin: 2rem auto 0;
   text-align: center;
 }
 
-.favourites-podium-second
-.favourites-product strong {
-  font-size: clamp(
-    1rem,
-    2.6vw,
-    1.45rem
-  );
+.race-progress {
+  height: 6px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: #dedbd3;
 }
 
-.favourites-podium-third
-.favourites-product strong {
-  font-size: clamp(
-    0.95rem,
-    2.4vw,
-    1.3rem
-  );
+.race-progress-fill {
+  height: 100%;
+  border-radius: inherit;
+  background: #e43b35;
 }
 
-.favourites-plus {
-  align-self: center;
-
+.race-replay {
+  margin-top: 2rem;
+  border: 0;
+  border-radius: 999px;
+  padding: 0.9rem 1.4rem;
+  background: #111;
   color: white;
-
-  font-size: 2rem;
-  font-weight: 900;
+  font: inherit;
+  font-weight: 800;
+  cursor: pointer;
 }
 
-/* -------------------------
-   SUMMARY
-------------------------- */
-
-.favourites-summary {
-  margin: 1.5rem auto 0;
-
-  display: grid;
-
-  grid-template-columns:
-    repeat(
-      2,
-      minmax(0, 1fr)
-    );
-
-  gap: 1rem;
-}
-
-.favourites-summary > div {
-  padding: 1.4rem;
-
-  border-radius: 20px;
-
-  background: white;
-
-  text-align: center;
-}
-
-.favourites-summary strong {
-  display: block;
-
-  font-size: 2rem;
-
-  letter-spacing: -0.04em;
-}
-
-.favourites-summary span {
-  display: block;
-
-  margin-top: 0.2rem;
-
-  color: #666;
-
-  font-size: 0.9rem;
-}
-
-/* -------------------------
-   #4–#10
-------------------------- */
-
-.favourites-ranking {
-  width: min(1000px, 100%);
-
-  margin: 5rem auto 0;
-}
-
-.favourites-ranking-title {
-  margin-bottom: 1.5rem;
-}
-
-.favourites-ranking-title h2 {
-  margin: 0;
-
-  font-size: clamp(
-    2rem,
-    5vw,
-    3.5rem
-  );
-
-  letter-spacing: -0.05em;
-}
-
-.favourites-list {
-  display: grid;
-
-  gap: 0.7rem;
-}
-
-.favourites-row {
-  display: grid;
-
-  grid-template-columns:
-    60px 1fr 90px;
-
-  align-items: center;
-
-  gap: 1rem;
-
-  padding: 0.9rem 1.2rem;
-
-  border-radius: 16px;
-
-  background: white;
-}
-
-.favourites-row-rank {
-  color: #2864dc;
-
-  font-size: 1.2rem;
-  font-weight: 900;
-}
-
-.favourites-row-choice {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-
-  gap: 0.45rem;
-
-  font-weight: 750;
-}
-
-.favourites-row-plus {
-  color: #888;
-
-  font-weight: 900;
-}
-
-.favourites-row-count {
-  text-align: right;
-}
-
-.favourites-row-count strong {
-  display: block;
-
-  font-size: 1.15rem;
-  font-weight: 900;
-}
-
-.favourites-row-count span {
-  display: block;
-
-  margin-top: 0.1rem;
-
-  color: #888;
-
-  font-size: 0.68rem;
-  font-weight: 700;
-}
-
-/* -------------------------
-   EMPTY
-------------------------- */
-
-.favourites-empty-result {
-  width: min(1000px, 100%);
-  margin: 0 auto;
-
-  padding: 5rem 2rem;
-
-  border-radius: 32px;
-
-  background: white;
-
-  text-align: center;
-}
-
-.favourites-empty-result h2 {
-  margin: 0 0 0.75rem;
-
-  font-size: clamp(
-    2rem,
-    5vw,
-    3.5rem
-  );
-
-  letter-spacing: -0.05em;
-}
-
-.favourites-empty-result p:last-child {
-  color: #666;
-}
-
-/* -------------------------
-   MOBILE
-------------------------- */
-
-@media (max-width: 800px) {
-  .favourites-shell {
+@media (max-width: 700px) {
+  .race-shell {
     padding: 1.25rem;
   }
 
-  .favourites-header {
+  .race-page-header {
     grid-template-columns:
-      auto 1fr;
-
-    gap: 1rem;
+      1fr auto;
   }
 
-  .favourites-heading {
+  .race-page-heading {
     text-align: right;
   }
 
-  .favourites-controls {
-    display: grid;
-  }
-
-  .favourites-date-range {
-    display: grid;
-
-    grid-template-columns:
-      repeat(
-        2,
-        1fr
-      );
-  }
-
-  .favourites-podium-second,
-  .favourites-podium-third {
+  .race-selector {
     width: 100%;
   }
 
-  .favourites-podium-topline {
-    margin-bottom: 1.25rem;
+  .race-selector-button {
+    flex: 1;
+    padding-inline: 0.5rem;
   }
 
-  .favourites-meal-products {
-    grid-template-columns: 1fr;
+  .race-live-heading {
+    align-items: center;
   }
 
-  .favourites-plus {
-    line-height: 0.6;
-
-    text-align: center;
+  .race-date {
+    min-width: 0;
   }
 
-  .favourites-product,
-  .favourites-podium-second
-  .favourites-product,
-  .favourites-podium-third
-  .favourites-product {
-    min-height: 100px;
-  }
-
-  .favourites-summary {
-    grid-template-columns: 1fr;
-  }
-
-  .favourites-row {
+  .race-row {
     grid-template-columns:
-      45px 1fr 55px;
-
+      28px 1fr 44px;
     gap: 0.6rem;
   }
 
-  .favourites-row-choice {
-    font-size: 0.85rem;
+  .race-count {
+    font-size: 1.1rem;
   }
 }
