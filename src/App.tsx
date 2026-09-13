@@ -10,6 +10,10 @@ import {
 } from './data/demoEdgeCases'
 
 import {
+  MobileWrappedJourney,
+} from './components/MobileWrappedJourney'
+
+import {
   MealDealRace,
 } from './components/MealDealRace'
 
@@ -37,6 +41,7 @@ import './App.css'
 
 type Screen =
   | 'home'
+  | 'wrapped'
   | 'race'
   | 'heist'
   | 'history'
@@ -71,6 +76,19 @@ function App() {
         file.name,
       )
     }
+  }
+
+  if (
+    screen === 'wrapped'
+  ) {
+    return (
+      <MobileWrappedJourney
+        dataset={demoDataset}
+        onExit={() =>
+          setScreen('home')
+        }
+      />
+    )
   }
 
   if (
@@ -193,7 +211,18 @@ function App() {
           </label>
 
           <button
-            className="demo-button"
+            className="demo-button mobile-wrapped-button"
+            onClick={() =>
+              setScreen(
+                'wrapped',
+              )
+            }
+          >
+            Start Wrapped
+          </button>
+
+          <button
+            className="demo-button desktop-feature-button"
             onClick={() =>
               setScreen('race')
             }
@@ -202,7 +231,7 @@ function App() {
           </button>
 
           <button
-            className="demo-button"
+            className="demo-button desktop-feature-button"
             onClick={() =>
               setScreen(
                 'favourites',
@@ -213,7 +242,7 @@ function App() {
           </button>
 
           <button
-            className="demo-button"
+            className="demo-button desktop-feature-button"
             onClick={() =>
               setScreen('heist')
             }
@@ -222,7 +251,7 @@ function App() {
           </button>
 
           <button
-            className="demo-button"
+            className="demo-button desktop-feature-button"
             onClick={() =>
               setScreen(
                 'history',
@@ -233,7 +262,7 @@ function App() {
           </button>
 
           <button
-            className="demo-button"
+            className="demo-button desktop-feature-button"
             onClick={() =>
               setScreen(
                 'streaks',
@@ -244,7 +273,7 @@ function App() {
           </button>
 
           <button
-            className="demo-button"
+            className="demo-button desktop-feature-button"
             onClick={() =>
               setScreen(
                 'diagnostics',

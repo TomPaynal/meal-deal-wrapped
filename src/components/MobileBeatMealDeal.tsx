@@ -1,4 +1,6 @@
-import { useState } from 'react'
+import {
+  useState,
+} from 'react'
 
 import type {
   BeatMealDealAnalysis,
@@ -12,6 +14,7 @@ interface MobileBeatMealDealProps {
   analysis: BeatMealDealAnalysis
   biggest: HeistDeal
   onBack: () => void
+  onComplete?: () => void
 }
 
 type MobileHeistPage =
@@ -22,6 +25,7 @@ export function MobileBeatMealDeal({
   analysis,
   biggest,
   onBack,
+  onComplete,
 }: MobileBeatMealDealProps) {
   const [
     page,
@@ -82,6 +86,9 @@ export function MobileBeatMealDeal({
       ) : (
         <BiggestSavingPage
           biggest={biggest}
+          onNext={
+            onComplete
+          }
         />
       )}
     </main>
@@ -168,8 +175,10 @@ function LifetimeValuePage({
 
 function BiggestSavingPage({
   biggest,
+  onNext,
 }: {
   biggest: HeistDeal
+  onNext?: () => void
 }) {
   return (
     <section className="mobile-heist-page mobile-heist-biggest-page">
@@ -241,6 +250,16 @@ function BiggestSavingPage({
           </span>
         </div>
       </div>
+
+      {onNext && (
+        <div className="mobile-heist-navigation">
+          <button
+            onClick={onNext}
+          >
+            Longest streak →
+          </button>
+        </div>
+      )}
     </section>
   )
 }
