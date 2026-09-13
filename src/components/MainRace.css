@@ -1,0 +1,236 @@
+.race-shell {
+  min-height: 100vh;
+  padding: clamp(1.5rem, 4vw, 4rem);
+  background: #f8f6f0;
+  color: #111;
+}
+
+.race-header {
+  width: min(1100px, 100%);
+  margin: 0 auto 3rem;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 2rem;
+}
+
+.race-back {
+  justify-self: start;
+  border: 0;
+  background: transparent;
+  color: #555;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.race-back:hover {
+  color: #111;
+}
+
+.race-eyebrow {
+  margin: 0 0 0.4rem;
+  color: #e43b35;
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+}
+
+.race-title {
+  margin: 0;
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  letter-spacing: -0.05em;
+}
+
+.race-date {
+  justify-self: end;
+  min-width: 170px;
+  text-align: right;
+  font-size: clamp(1.2rem, 3vw, 2rem);
+  font-weight: 800;
+  color: #2864dc;
+}
+
+.race-track {
+  position: relative;
+  width: min(1000px, 100%);
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+.race-row {
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 64px;
+  display: grid;
+  grid-template-columns: 42px 1fr 70px;
+  align-items: center;
+  gap: 1rem;
+
+  transition:
+    transform 360ms cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 220ms ease;
+
+  will-change: transform;
+}
+
+.race-rank {
+  text-align: right;
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #777;
+}
+
+.race-bar-zone {
+  position: relative;
+  height: 54px;
+  overflow: hidden;
+  border-radius: 12px;
+}
+
+.race-bar {
+  position: absolute;
+  inset: 0 auto 0 0;
+  border-radius: 12px;
+  background: #2864dc;
+
+  /*
+   * Width is now updated continuously by
+   * requestAnimationFrame, so CSS no longer
+   * needs to fake the tween.
+   */
+  will-change: width;
+}
+
+.race-name {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  padding: 0 1rem;
+  font-size: clamp(0.85rem, 2vw, 1.1rem);
+  font-weight: 800;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  pointer-events: none;
+}
+
+.race-count {
+  font-size: 1.45rem;
+  font-weight: 900;
+  font-variant-numeric: tabular-nums;
+}
+
+.race-footer {
+  width: min(1000px, 100%);
+  margin: 2rem auto 0;
+  text-align: center;
+}
+
+.race-progress {
+  height: 6px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: #dedbd3;
+}
+
+.race-progress-fill {
+  height: 100%;
+  border-radius: inherit;
+  background: #e43b35;
+}
+
+.race-replay {
+  margin-top: 2rem;
+  border: 0;
+  border-radius: 999px;
+  padding: 0.9rem 1.4rem;
+  background: #111;
+  color: white;
+  font: inherit;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.race-ready {
+  min-height: calc(100vh - 8rem);
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  text-align: center;
+}
+
+.race-ready-title {
+  margin: 0;
+  max-width: 800px;
+  font-size: clamp(4rem, 11vw, 8rem);
+  line-height: 0.86;
+  letter-spacing: -0.07em;
+}
+
+.race-ready-title span {
+  display: block;
+  color: #2864dc;
+}
+
+.race-ready-copy {
+  max-width: 520px;
+  margin: 2rem auto;
+  color: #555;
+  font-size: 1.15rem;
+  line-height: 1.6;
+}
+
+.race-start {
+  border: 0;
+  border-radius: 999px;
+  padding: 1.1rem 2rem;
+  background: #111;
+  color: white;
+  font: inherit;
+  font-size: 1.05rem;
+  font-weight: 900;
+  cursor: pointer;
+  transition:
+    transform 150ms ease,
+    background 150ms ease;
+}
+
+.race-start:hover {
+  transform: translateY(-2px);
+  background: #2864dc;
+}
+
+.race-warning {
+  margin-top: 1rem;
+  color: #888;
+  font-size: 0.8rem;
+}
+
+@media (max-width: 700px) {
+  .race-shell {
+    padding: 1.25rem;
+  }
+
+  .race-header {
+    grid-template-columns: 1fr auto;
+  }
+
+  .race-header > div:nth-child(2) {
+    display: none;
+  }
+
+  .race-date {
+    min-width: 0;
+  }
+
+  .race-row {
+    grid-template-columns: 28px 1fr 44px;
+    gap: 0.6rem;
+  }
+
+  .race-count {
+    font-size: 1.1rem;
+  }
+}
