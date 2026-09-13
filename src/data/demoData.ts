@@ -5,9 +5,6 @@ import type {
   Transaction,
 } from '../types/data'
 
-import {
-  demoEdgeCaseTransactions,
-} from './demoEdgeCases'
 
 // Completely synthetic demo data.
 // None of these transactions represent real purchases.
@@ -560,22 +557,6 @@ export const demoDataset:
 
   products,
 
-  transactions: [
-    ...createDemoTransactions(),
-
-    /*
-     * Deliberately ambiguous / awkward
-     * baskets used by the resolver
-     * diagnostics screen.
-     */
-    ...demoEdgeCaseTransactions,
-  ].sort(
-    (a, b) =>
-      new Date(
-        a.occurredAt,
-      ).getTime() -
-      new Date(
-        b.occurredAt,
-      ).getTime(),
-  ),
+  transactions:
+    createDemoTransactions(),
 }

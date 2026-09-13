@@ -1,15 +1,22 @@
 import type {
   MealDealDataset,
   MealDealRole,
-  PurchaseItem,
   Store,
   Transaction,
 } from '../types/data'
 
-export type ResolvedMealDealRole = Exclude<
-  MealDealRole,
-  'unknown'
->
+import {
+  allocateTescoMealDeals,
+  getEligibleCandidates,
+  pairByScanOrder,
+  type IndexedCandidate,
+} from './tescoPromotionModel'
+
+export type ResolvedMealDealRole =
+  Exclude<
+    MealDealRole,
+    'unknown'
+  >
 
 export type MealDealTier =
   | 'standard'
@@ -28,13 +35,15 @@ export type MealDealSavingSource =
   | 'estimated'
   | 'unknown'
 
+export type MealDealInferenceSource =
+  | 'tesco'
+  | 'unambiguous'
+  | 'tesco-allocation'
+  | 'scan-order'
+
 export interface ResolvedMealDealMembership {
   transactionId: string
 
-  /*
-   * Present when we know exactly which
-   * three products belonged together.
-   */
   dealId?: string
 
   occurredAt: string
@@ -44,11 +53,17 @@ export interface ResolvedMealDealMembership {
   role: ResolvedMealDealRole
 
   tier: MealDealTier
-  certainty: MealDealCertainty
+
+  certainty:
+    MealDealCertainty
+
+  inferenceSource:
+    MealDealInferenceSource
 }
 
 export interface DerivedMealDeal {
   id: string
+
   transactionId: string
 
   occurredAt: string
@@ -60,18 +75,14 @@ export interface DerivedMealDeal {
 
   tier: MealDealTier
 
-  /*
-   * Membership = are these definitely
-   * Meal Deal products?
-   *
-   * Pairing = are we sure these exact
-   * three products belonged together?
-   */
   membershipCertainty:
     MealDealCertainty
 
   pairingCertainty:
     MealDealCertainty
+
+  inferenceSource:
+    MealDealInferenceSource
 
   shelfTotalPence?: number
   paidTotalPence?: number
@@ -82,8 +93,10 @@ export interface DerivedMealDeal {
 }
 
 export type AmbiguousMealDealReason =
-  | 'multiple-candidates'
   | 'multiple-quantity'
+  | 'price-tie'
+  | 'missing-price'
+  | 'pairing-ambiguous'
 
 export interface AmbiguousMealDealBasket {
   transactionId: string
@@ -91,70 +104,70 @@ export interface AmbiguousMealDealBasket {
   occurredAt: string
   store?: Store
 
-  reason: AmbiguousMealDealReason
+  reason:
+    AmbiguousMealDealReason
 
-  candidateMainProductIds: string[]
-  candidateSideProductIds: string[]
-  candidateDrinkProductIds: string[]
+  inferredDealCount: number
+
+  candidateMainProductIds:
+    string[]
+
+  candidateSideProductIds:
+    string[]
+
+  candidateDrinkProductIds:
+    string[]
 }
 
 export interface MealDealResolutionResult {
   /*
-   * Exact main + side + drink combinations.
-   * Safe for combo analysis.
+   * Exact combos we are willing to use
+   * in combo rankings.
    */
   deals: DerivedMealDeal[]
 
   /*
-   * Individual products we know were
-   * Meal Deal members.
+   * Individual products definitely
+   * allocated to Meal Deals.
    *
-   * These can eventually contain products
-   * from baskets where membership is known
-   * but exact pairing is not.
-   *
-   * Safe for mains/snacks/drinks races.
+   * Safe for category races.
    */
   memberships:
     ResolvedMealDealMembership[]
 
   /*
-   * Potential Meal Deal baskets where
-   * we refuse to guess.
+   * Baskets where some useful information
+   * may exist, but exact resolution wasn't
+   * possible.
    */
   ambiguousBaskets:
     AmbiguousMealDealBasket[]
 }
 
-function getItemsForRole(
-  dataset: MealDealDataset,
-  items: PurchaseItem[],
-  role: ResolvedMealDealRole,
-): PurchaseItem[] {
-  return items.filter((item) => {
-    const product =
-      dataset.products[item.productId]
-
-    return (
-      product?.mealDealRole === role
-    )
-  })
-}
-
-function getCandidateProductIds(
-  items: PurchaseItem[],
+function getCandidateIds(
+  candidates:
+    IndexedCandidate[],
+  role:
+    ResolvedMealDealRole,
 ): string[] {
-  return items.map(
-    (item) => item.productId,
-  )
+  return candidates
+    .filter(
+      (candidate) =>
+        candidate.role === role,
+    )
+    .map(
+      (candidate) =>
+        candidate.item.productId,
+    )
 }
 
-function getSelectedShelfTotal(
-  items: PurchaseItem[],
+function getShelfTotal(
+  group:
+    IndexedCandidate[],
 ): number | undefined {
   if (
-    items.some(
-      (item) =>
+    group.some(
+      ({ item }) =>
         item.shelfPricePence ===
         undefined,
     )
@@ -162,29 +175,143 @@ function getSelectedShelfTotal(
     return undefined
   }
 
-  return items.reduce(
-    (total, item) =>
+  return group.reduce(
+    (total, { item }) =>
       total +
-      (item.shelfPricePence ?? 0),
+      (
+        item.shelfPricePence ??
+        0
+      ),
     0,
   )
 }
 
-function isPureThreeItemBasket(
+function isPureSingleDealBasket(
   transaction: Transaction,
 ): boolean {
   return (
     transaction.items.length === 3 &&
     transaction.items.every(
-      (item) => item.quantity === 1,
+      (item) =>
+        item.quantity === 1,
     )
   )
+}
+
+function getCandidateForRole(
+  group:
+    IndexedCandidate[],
+  role:
+    ResolvedMealDealRole,
+): IndexedCandidate {
+  const candidate =
+    group.find(
+      (item) =>
+        item.role === role,
+    )
+
+  if (!candidate) {
+    throw new Error(
+      `Missing ${role} in resolved Meal Deal`,
+    )
+  }
+
+  return candidate
+}
+
+function createDerivedDeal(
+  transaction: Transaction,
+  group: IndexedCandidate[],
+  dealIndex: number,
+  certainty:
+    MealDealCertainty,
+  inferenceSource:
+    MealDealInferenceSource,
+): DerivedMealDeal {
+  const main =
+    getCandidateForRole(
+      group,
+      'main',
+    )
+
+  const side =
+    getCandidateForRole(
+      group,
+      'side',
+    )
+
+  const drink =
+    getCandidateForRole(
+      group,
+      'drink',
+    )
+
+  const pureSingleDealBasket =
+    isPureSingleDealBasket(
+      transaction,
+    )
+
+  const savingPence =
+    pureSingleDealBasket
+      ? transaction.totals
+          .savingPence
+      : undefined
+
+  return {
+    id:
+      `${transaction.id}:deal-${dealIndex + 1}`,
+
+    transactionId:
+      transaction.id,
+
+    occurredAt:
+      transaction.occurredAt,
+
+    store:
+      transaction.store,
+
+    mainProductId:
+      main.item.productId,
+
+    sideProductId:
+      side.item.productId,
+
+    drinkProductId:
+      drink.item.productId,
+
+    tier: 'unknown',
+
+    membershipCertainty:
+      certainty,
+
+    pairingCertainty:
+      certainty,
+
+    inferenceSource,
+
+    shelfTotalPence:
+      getShelfTotal(group),
+
+    paidTotalPence:
+      pureSingleDealBasket
+        ? transaction.totals
+            .paidTotalPence
+        : undefined,
+
+    savingPence,
+
+    savingSource:
+      savingPence !== undefined
+        ? 'tesco'
+        : 'unknown',
+  }
 }
 
 export function resolveMealDeals(
   dataset: MealDealDataset,
 ): MealDealResolutionResult {
-  const deals: DerivedMealDeal[] = []
+  const deals:
+    DerivedMealDeal[] = []
 
   const memberships:
     ResolvedMealDealMembership[] = []
@@ -196,31 +323,33 @@ export function resolveMealDeals(
     const transaction
     of dataset.transactions
   ) {
-    const mains = getItemsForRole(
-      dataset,
-      transaction.items,
-      'main',
-    )
+    const candidates =
+      getEligibleCandidates(
+        dataset,
+        transaction,
+      )
 
-    const sides = getItemsForRole(
-      dataset,
-      transaction.items,
-      'side',
-    )
+    const mains =
+      candidates.filter(
+        (candidate) =>
+          candidate.role === 'main',
+      )
 
-    const drinks = getItemsForRole(
-      dataset,
-      transaction.items,
-      'drink',
-    )
+    const sides =
+      candidates.filter(
+        (candidate) =>
+          candidate.role === 'side',
+      )
+
+    const drinks =
+      candidates.filter(
+        (candidate) =>
+          candidate.role === 'drink',
+      )
 
     /*
-     * If any role is completely absent,
-     * this is not even a candidate complete
-     * Meal Deal.
-     *
-     * A standalone Pepsi, sandwich, etc.
-     * therefore disappears here.
+     * Standalone eligible products never
+     * become Meal Deal stats.
      */
     if (
       mains.length === 0 ||
@@ -230,33 +359,18 @@ export function resolveMealDeals(
       continue
     }
 
-    const allCandidates = [
-      ...mains,
-      ...sides,
-      ...drinks,
-    ]
-
-    const hasMultipleQuantity =
-      allCandidates.some(
-        (item) => item.quantity !== 1,
-      )
-
-    const hasExactlyOneCandidatePerRole =
-      mains.length === 1 &&
-      sides.length === 1 &&
-      drinks.length === 1
-
     /*
-     * V1 refuses to guess whenever more
-     * than one candidate exists.
+     * Quantity > 1 needs unit expansion
+     * before we can safely reason about
+     * scan ordering.
      *
-     * Later this is where our historical
-     * Meal Deal pricing / highest-value
-     * inference engine will slot in.
+     * Keep this conservative for now.
      */
     if (
-      hasMultipleQuantity ||
-      !hasExactlyOneCandidatePerRole
+      candidates.some(
+        ({ item }) =>
+          item.quantity !== 1,
+      )
     ) {
       ambiguousBaskets.push({
         transactionId:
@@ -269,129 +383,124 @@ export function resolveMealDeals(
           transaction.store,
 
         reason:
-          hasMultipleQuantity
-            ? 'multiple-quantity'
-            : 'multiple-candidates',
+          'multiple-quantity',
+
+        inferredDealCount:
+          Math.min(
+            mains.length,
+            sides.length,
+            drinks.length,
+          ),
 
         candidateMainProductIds:
-          getCandidateProductIds(
-            mains,
+          getCandidateIds(
+            candidates,
+            'main',
           ),
 
         candidateSideProductIds:
-          getCandidateProductIds(
-            sides,
+          getCandidateIds(
+            candidates,
+            'side',
           ),
 
         candidateDrinkProductIds:
-          getCandidateProductIds(
-            drinks,
+          getCandidateIds(
+            candidates,
+            'drink',
           ),
       })
 
       continue
     }
 
-    const main = mains[0]
-    const side = sides[0]
-    const drink = drinks[0]
-
-    const dealId =
-      `${transaction.id}:deal-1`
-
-    const selectedItems = [
-      main,
-      side,
-      drink,
-    ]
-
-    const shelfTotalPence =
-      getSelectedShelfTotal(
-        selectedItems,
-      )
-
-    /*
-     * Basket-level paid/saving values are
-     * only safe to attribute directly to
-     * the Meal Deal when the basket itself
-     * consists solely of those three items.
-     *
-     * If toothpaste etc. was also bought,
-     * we leave these undefined rather than
-     * silently misattribute basket savings.
-     */
-    const pureThreeItemBasket =
-      isPureThreeItemBasket(
+    const allocation =
+      allocateTescoMealDeals(
+        dataset,
         transaction,
       )
 
-    const paidTotalPence =
-      pureThreeItemBasket
-        ? transaction.totals
-            .paidTotalPence
-        : undefined
-
-    const savingPence =
-      pureThreeItemBasket
-        ? transaction.totals
-            .savingPence
-        : undefined
-
-    const savingSource:
-      MealDealSavingSource =
-        savingPence !== undefined
-          ? 'tesco'
-          : 'unknown'
-
-    const deal: DerivedMealDeal = {
-      id: dealId,
-
-      transactionId:
-        transaction.id,
-
-      occurredAt:
-        transaction.occurredAt,
-
-      store:
-        transaction.store,
-
-      mainProductId:
-        main.productId,
-
-      sideProductId:
-        side.productId,
-
-      drinkProductId:
-        drink.productId,
-
-      /*
-       * We cannot infer tier yet.
-       * That comes once we have historical
-       * standard/premium pricing rules.
-       */
-      tier: 'unknown',
-
-      membershipCertainty:
-        'unambiguous',
-
-      pairingCertainty:
-        'unambiguous',
-
-      shelfTotalPence,
-      paidTotalPence,
-      savingPence,
-
-      savingSource,
+    if (
+      allocation.dealCount === 0
+    ) {
+      continue
     }
 
-    deals.push(deal)
+    const exactlyOneCandidatePerRole =
+      mains.length === 1 &&
+      sides.length === 1 &&
+      drinks.length === 1
 
-    memberships.push(
-      {
+    const membershipCertainty:
+      MealDealCertainty =
+        exactlyOneCandidatePerRole
+          ? 'unambiguous'
+          : 'inferred'
+
+    const membershipSource:
+      MealDealInferenceSource =
+        exactlyOneCandidatePerRole
+          ? 'unambiguous'
+          : 'tesco-allocation'
+
+    const allAllocations = [
+      allocation.mains,
+      allocation.sides,
+      allocation.drinks,
+    ]
+
+    /*
+     * Even when a basket isn't completely
+     * resolvable, definitely-selected
+     * products are still valid membership
+     * stats.
+     */
+    for (
+      const roleAllocation
+      of allAllocations
+    ) {
+      for (
+        const selected
+        of roleAllocation.selected
+      ) {
+        memberships.push({
+          transactionId:
+            transaction.id,
+
+          occurredAt:
+            transaction.occurredAt,
+
+          store:
+            transaction.store,
+
+          productId:
+            selected.item.productId,
+
+          role:
+            selected.role,
+
+          tier: 'unknown',
+
+          certainty:
+            membershipCertainty,
+
+          inferenceSource:
+            membershipSource,
+        })
+      }
+    }
+
+    const unresolvedAllocation =
+      allAllocations.find(
+        (roleAllocation) =>
+          roleAllocation.status !==
+          'resolved',
+      )
+
+    if (unresolvedAllocation) {
+      ambiguousBaskets.push({
         transactionId:
           transaction.id,
-
-        dealId,
 
         occurredAt:
           transaction.occurredAt,
@@ -399,21 +508,115 @@ export function resolveMealDeals(
         store:
           transaction.store,
 
-        productId:
-          main.productId,
+        reason:
+          unresolvedAllocation
+            .status ===
+          'missing-price'
+            ? 'missing-price'
+            : 'price-tie',
 
-        role: 'main',
+        inferredDealCount:
+          allocation.dealCount,
 
-        tier: 'unknown',
+        candidateMainProductIds:
+          getCandidateIds(
+            candidates,
+            'main',
+          ),
 
-        certainty:
-          'unambiguous',
-      },
-      {
+        candidateSideProductIds:
+          getCandidateIds(
+            candidates,
+            'side',
+          ),
+
+        candidateDrinkProductIds:
+          getCandidateIds(
+            candidates,
+            'drink',
+          ),
+      })
+
+      continue
+    }
+
+    /*
+     * One deal + fully resolved Tesco
+     * allocation needs no scan-order leap.
+     */
+    if (
+      allocation.dealCount === 1
+    ) {
+      const group = [
+        allocation.mains
+          .selected[0],
+
+        allocation.sides
+          .selected[0],
+
+        allocation.drinks
+          .selected[0],
+      ]
+
+      const deal =
+        createDerivedDeal(
+          transaction,
+          group,
+          0,
+          membershipCertainty,
+          membershipSource,
+        )
+
+      deals.push(deal)
+
+      /*
+       * Attach deal ID to these memberships.
+       */
+      for (
+        let index =
+          memberships.length - 1;
+        index >= 0;
+        index -= 1
+      ) {
+        const membership =
+          memberships[index]
+
+        if (
+          membership.transactionId !==
+          transaction.id
+        ) {
+          break
+        }
+
+        membership.dealId =
+          deal.id
+      }
+
+      continue
+    }
+
+    /*
+     * Multiple deals:
+     *
+     * Tesco's price model tells us WHICH
+     * items participated.
+     *
+     * Original item order is then used to
+     * infer WHICH THREE travelled together.
+     *
+     * We only accept the pairing if the
+     * selected products form clean
+     * main/snack/drink trios in scan order.
+     */
+    const scanOrderGroups =
+      pairByScanOrder(
+        allocation,
+      )
+
+    if (!scanOrderGroups) {
+      ambiguousBaskets.push({
         transactionId:
           transaction.id,
-
-        dealId,
 
         occurredAt:
           transaction.occurredAt,
@@ -421,39 +624,104 @@ export function resolveMealDeals(
         store:
           transaction.store,
 
-        productId:
-          side.productId,
+        reason:
+          'pairing-ambiguous',
 
-        role: 'side',
+        inferredDealCount:
+          allocation.dealCount,
 
-        tier: 'unknown',
+        candidateMainProductIds:
+          getCandidateIds(
+            candidates,
+            'main',
+          ),
 
-        certainty:
-          'unambiguous',
-      },
-      {
-        transactionId:
-          transaction.id,
+        candidateSideProductIds:
+          getCandidateIds(
+            candidates,
+            'side',
+          ),
 
-        dealId,
+        candidateDrinkProductIds:
+          getCandidateIds(
+            candidates,
+            'drink',
+          ),
+      })
 
-        occurredAt:
-          transaction.occurredAt,
+      /*
+       * Memberships remain valid and can
+       * still appear in races.
+       */
+      continue
+    }
 
-        store:
-          transaction.store,
+    const transactionDeals =
+      scanOrderGroups.map(
+        (group, index) =>
+          createDerivedDeal(
+            transaction,
+            group,
+            index,
+            'inferred',
+            'scan-order',
+          ),
+      )
 
-        productId:
-          drink.productId,
-
-        role: 'drink',
-
-        tier: 'unknown',
-
-        certainty:
-          'unambiguous',
-      },
+    deals.push(
+      ...transactionDeals,
     )
+
+    /*
+     * Link each membership to its inferred
+     * scan-order deal.
+     *
+     * Product IDs are sufficient for our
+     * current quantity=1 baskets.
+     */
+    for (
+      const deal
+      of transactionDeals
+    ) {
+      const productIds =
+        new Set([
+          deal.mainProductId,
+          deal.sideProductId,
+          deal.drinkProductId,
+        ])
+
+      for (
+        let index =
+          memberships.length - 1;
+        index >= 0;
+        index -= 1
+      ) {
+        const membership =
+          memberships[index]
+
+        if (
+          membership.transactionId !==
+          transaction.id
+        ) {
+          break
+        }
+
+        if (
+          productIds.has(
+            membership.productId,
+          )
+        ) {
+          membership.dealId =
+            deal.id
+
+          membership.certainty =
+            'inferred'
+
+          membership.inferenceSource =
+            'scan-order'
+        }
+      }
+    }
   }
 
   return {
@@ -463,11 +731,6 @@ export function resolveMealDeals(
   }
 }
 
-/*
- * Backwards-compatible convenience
- * function for analyses that only care
- * about exact three-item combinations.
- */
 export function deriveMealDeals(
   dataset: MealDealDataset,
 ): DerivedMealDeal[] {

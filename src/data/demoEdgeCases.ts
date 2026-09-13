@@ -1,6 +1,11 @@
 import type {
+  MealDealDataset,
   Transaction,
 } from '../types/data'
+
+import {
+  demoDataset,
+} from './demoData'
 
 export interface DemoDiagnosticCase {
   transactionId: string
@@ -277,8 +282,26 @@ export const demoEdgeCaseTransactions:
 
       totals: {
         shelfTotalPence: 860,
-        paidTotalPence: 500,
-        savingPence: 360,
+        paidTotalPence: 490,
+        savingPence: 370,
       },
     },
   ]
+
+  export const demoDiagnosticDataset:
+  MealDealDataset = {
+  ...demoDataset,
+
+  transactions: [
+    ...demoDataset.transactions,
+    ...demoEdgeCaseTransactions,
+  ].sort(
+    (a, b) =>
+      new Date(
+        a.occurredAt,
+      ).getTime() -
+      new Date(
+        b.occurredAt,
+      ).getTime(),
+  ),
+}

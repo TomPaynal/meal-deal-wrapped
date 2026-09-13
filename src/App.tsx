@@ -6,6 +6,7 @@ import {
 
 import {
   demoDiagnosticCases,
+  demoDiagnosticDataset,
 } from './data/demoEdgeCases'
 
 import {
@@ -75,7 +76,7 @@ function App() {
   ) {
     return (
       <ResolverDiagnostics
-        dataset={demoDataset}
+        dataset={demoDiagnosticDataset}
         cases={
           demoDiagnosticCases
         }
