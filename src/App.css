@@ -196,3 +196,111 @@ h1 span {
     display: none;
   }
 }
+
+/* -------------------------
+   TESCO IMPORT DIAGNOSTICS
+------------------------- */
+
+.import-diagnostics {
+  width: min(520px, 100%);
+
+  margin: 1.5rem auto 0;
+
+  padding: 1.25rem;
+
+  border-radius: 22px;
+
+  background: #ffd900;
+
+  color: #111;
+
+  text-align: left;
+}
+
+.import-diagnostics-title {
+  display: block;
+
+  margin-bottom: 1rem;
+
+  font-size: 1.05rem;
+
+  text-align: center;
+}
+
+.import-diagnostics-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(
+      2,
+      minmax(0, 1fr)
+    );
+
+  gap: 0.65rem;
+}
+
+.import-diagnostics-grid div {
+  padding: 0.75rem;
+
+  border-radius: 14px;
+
+  background:
+    rgba(
+      255,
+      255,
+      255,
+      0.45
+    );
+}
+
+.import-diagnostics-grid span {
+  display: block;
+
+  margin-bottom: 0.2rem;
+
+  font-size: 0.68rem;
+
+  font-weight: 800;
+
+  line-height: 1.15;
+
+  text-transform: uppercase;
+
+  letter-spacing: 0.05em;
+
+  opacity: 0.65;
+}
+
+.import-diagnostics-grid strong {
+  display: block;
+
+  font-size: 1.35rem;
+
+  line-height: 1;
+}
+
+.import-ready {
+  margin:
+    1rem 0 0;
+
+  font-size: 0.85rem;
+
+  font-weight: 800;
+
+  text-align: center;
+}
+
+.import-diagnostics-error {
+  background: #ee1c2e;
+
+  color: white;
+
+  text-align: center;
+}
+
+.import-diagnostics-error p {
+  margin:
+    0.5rem 0 0;
+
+  line-height: 1.4;
+}
