@@ -1,22 +1,696 @@
-.mobile-wrapped-journey {
-  min-height: 100dvh;
+/* =========================================================
+   MOBILE WRAPPED — SHARED VISUAL LANGUAGE
 
-  background: #00539f;
-}
+   This file is the polish layer for the complete mobile
+   journey. Individual screens keep their own personality;
+   repeated UI elements are normalised here.
+   ========================================================= */
 
+.mobile-wrapped-journey,
 .wrapped-journey {
   min-height: 100dvh;
 
   background: #00539f;
 }
 
+.wrapped-journey {
+  --wrapped-blue: #00539f;
+  --wrapped-red: #ee1c2e;
+  --wrapped-yellow: #ffd900;
+  --wrapped-ink: #111;
+
+  --wrapped-white-muted:
+    rgba(
+      255,
+      255,
+      255,
+      0.78
+    );
+
+  --wrapped-black-muted:
+    rgba(
+      0,
+      0,
+      0,
+      0.58
+    );
+
+  --wrapped-page-x: 1.1rem;
+  --wrapped-page-top: 1rem;
+
+  --wrapped-header-gap: 0.85rem;
+
+  --wrapped-card-radius: 26px;
+  --wrapped-sticker-radius: 20px;
+
+  --wrapped-kicker-size: 0.65rem;
+
+  --wrapped-title-size:
+    clamp(
+      1.9rem,
+      8vw,
+      2.5rem
+    );
+
+  --wrapped-back-size: 0.9rem;
+  --wrapped-pill-size: 0.88rem;
+
+  --wrapped-next-right: 1.1rem;
+
+  --wrapped-next-bottom:
+    calc(
+      1rem +
+      env(
+        safe-area-inset-bottom
+      )
+    );
+}
+
 .wrapped-step {
   position: relative;
 }
 
-/* -----------------------
+
+/* =========================================================
+   SHARED MOBILE POLISH
+   ========================================================= */
+
+@media (max-width: 700px) {
+
+  /* -------------------------------------------------------
+     PAGE GEOMETRY
+     ------------------------------------------------------- */
+
+  .wrapped-journey
+  .mobile-history,
+
+  .wrapped-journey
+  .mobile-heist,
+
+  .wrapped-journey
+  .streak-shell,
+
+  .wrapped-journey
+  .race-shell,
+
+  .wrapped-journey
+  .mobile-favourites {
+    min-height: 100dvh;
+
+    background:
+      var(--wrapped-blue);
+
+    color: white;
+  }
+
+
+  /*
+   * Every journey page which has a Next button reserves
+   * the same bottom area for it.
+   */
+
+  .wrapped-journey
+  .mobile-history,
+
+  .wrapped-journey
+  .mobile-heist,
+
+  .wrapped-journey
+  .streak-shell,
+
+  .wrapped-journey
+  .race-shell {
+    padding:
+      var(--wrapped-page-top)
+      var(--wrapped-page-x)
+      calc(
+        5.25rem +
+        env(
+          safe-area-inset-bottom
+        )
+      );
+  }
+
+
+  /*
+   * Finale has no onward journey button,
+   * so it does not need the extra reserved space.
+   */
+
+  .wrapped-journey
+  .mobile-favourites {
+    padding:
+      var(--wrapped-page-top)
+      var(--wrapped-page-x)
+      calc(
+        1rem +
+        env(
+          safe-area-inset-bottom
+        )
+      );
+  }
+
+
+  /*
+   * History and favourites originally used parent gap
+   * while other pages used margins. Normalise that here
+   * so header placement does not depend on the screen.
+   */
+
+  .wrapped-journey
+  .mobile-history,
+
+  .wrapped-journey
+  .mobile-favourites {
+    gap: 0;
+  }
+
+
+  /* -------------------------------------------------------
+     PAGE HEADERS
+     ------------------------------------------------------- */
+
+  .wrapped-journey
+  :is(
+    .mobile-history-header,
+    .mobile-heist-header,
+    .streak-header,
+    .race-page-header,
+    .mobile-favourites-header
+  ) {
+    width: 100%;
+
+    min-height: 3.1rem;
+
+    margin:
+      0 0
+      var(--wrapped-header-gap);
+
+    display: grid;
+
+    grid-template-columns:
+      auto 1fr;
+
+    align-items: center;
+
+    gap: 1rem;
+  }
+
+
+  .wrapped-journey
+  :is(
+    .mobile-history-heading,
+    .mobile-heist-heading,
+    .streak-heading,
+    .race-page-heading,
+    .mobile-favourites-heading
+  ) {
+    text-align: right;
+  }
+
+
+  /* -------------------------------------------------------
+     BACK BUTTONS
+     ------------------------------------------------------- */
+
+  .wrapped-journey
+  :is(
+    .mobile-history-back,
+    .mobile-heist-back,
+    .streak-back,
+    .race-back,
+    .mobile-favourites-back
+  ) {
+    justify-self: start;
+
+    padding: 0;
+
+    border: 0;
+
+    background: transparent;
+
+    color:
+      rgba(
+        255,
+        255,
+        255,
+        0.82
+      );
+
+    font: inherit;
+
+    font-size:
+      var(--wrapped-back-size);
+
+    font-weight: 700;
+
+    line-height: 1;
+
+    white-space: nowrap;
+
+    cursor: pointer;
+  }
+
+
+  /* -------------------------------------------------------
+     HEADER KICKERS
+     ------------------------------------------------------- */
+
+  .wrapped-journey
+  .mobile-history-heading p,
+
+  .wrapped-journey
+  .mobile-heist-heading p,
+
+  .wrapped-journey
+  .streak-heading p,
+
+  .wrapped-journey
+  .race-page-heading
+  .race-eyebrow,
+
+  .wrapped-journey
+  .mobile-favourites-heading p {
+    margin:
+      0 0 0.2rem;
+
+    color:
+      var(--wrapped-yellow);
+
+    font-size:
+      var(--wrapped-kicker-size);
+
+    font-weight: 900;
+
+    line-height: 1.1;
+
+    letter-spacing:
+      0.15em;
+  }
+
+
+  /* -------------------------------------------------------
+     HEADER TITLES
+     ------------------------------------------------------- */
+
+  .wrapped-journey
+  .mobile-history-heading h1,
+
+  .wrapped-journey
+  .mobile-heist-heading h1,
+
+  .wrapped-journey
+  .streak-heading h1,
+
+  .wrapped-journey
+  .race-title,
+
+  .wrapped-journey
+  .mobile-favourites-heading h1 {
+    margin: 0;
+
+    color: white;
+
+    font-size:
+      var(--wrapped-title-size);
+
+    line-height: 0.95;
+
+    letter-spacing:
+      -0.055em;
+  }
+
+
+  /* -------------------------------------------------------
+     CATEGORY SELECTORS
+
+     Race / streak / favourites now use exactly the same
+     dimensions and typography.
+     ------------------------------------------------------- */
+
+  .wrapped-journey
+  :is(
+    .streak-selector,
+    .race-selector,
+    .mobile-favourites-selector
+  ) {
+    width: 100%;
+
+    margin:
+      0 0 0.85rem;
+
+    padding: 0.28rem;
+
+    display: flex;
+
+    gap: 0.2rem;
+
+    border-radius: 999px;
+
+    background:
+      rgba(
+        255,
+        255,
+        255,
+        0.14
+      );
+  }
+
+
+  .wrapped-journey
+  :is(
+    .streak-pill,
+    .race-selector-button,
+    .mobile-favourites-pill
+  ) {
+    flex: 1;
+
+    min-height: 2.45rem;
+
+    padding:
+      0.65rem
+      0.3rem;
+
+    border: 0;
+
+    border-radius: 999px;
+
+    background: transparent;
+
+    color:
+      rgba(
+        255,
+        255,
+        255,
+        0.72
+      );
+
+    font: inherit;
+
+    font-size:
+      var(--wrapped-pill-size);
+
+    font-weight: 800;
+
+    line-height: 1;
+
+    cursor: pointer;
+  }
+
+
+  .wrapped-journey
+  .streak-pill-active,
+
+  .wrapped-journey
+  .race-selector-button.active,
+
+  .wrapped-journey
+  .mobile-favourites-pill-active {
+    background:
+      var(--wrapped-yellow);
+
+    color:
+      var(--wrapped-ink);
+  }
+
+
+  /* -------------------------------------------------------
+     CRIMSON HERO LANGUAGE
+     ------------------------------------------------------- */
+
+  .wrapped-journey
+  :is(
+    .mobile-history-first,
+    .mobile-heist-reveal,
+    .streak-reveal,
+    .mobile-favourites-winner
+  ) {
+    border-radius:
+      var(--wrapped-card-radius);
+
+    background:
+      var(--wrapped-red);
+  }
+
+
+  .wrapped-journey
+  .mobile-history-first-label,
+
+  .wrapped-journey
+  .mobile-heist-reveal
+  > span,
+
+  .wrapped-journey
+  .streak-reveal
+  > span {
+    color:
+      rgba(
+        255,
+        255,
+        255,
+        0.78
+      );
+
+    font-size: 0.7rem;
+
+    font-weight: 900;
+
+    line-height: 1.1;
+
+    letter-spacing:
+      0.15em;
+  }
+
+
+  /* -------------------------------------------------------
+     YELLOW STICKER LANGUAGE
+     ------------------------------------------------------- */
+
+  .wrapped-journey
+  :is(
+    .mobile-history-sticker,
+    .mobile-heist-stat,
+    .streak-product,
+    .mobile-heist-product
+  ) {
+    border-radius:
+      var(--wrapped-sticker-radius);
+
+    background:
+      var(--wrapped-yellow);
+
+    color:
+      var(--wrapped-ink);
+  }
+
+
+  .wrapped-journey
+  .mobile-history-sticker
+  > span,
+
+  .wrapped-journey
+  .mobile-heist-stat
+  > span,
+
+  .wrapped-journey
+  .streak-product
+  > span,
+
+  .wrapped-journey
+  .mobile-heist-product-role {
+    color:
+      var(--wrapped-black-muted);
+
+    font-size: 0.68rem;
+
+    font-weight: 900;
+  }
+
+
+  /*
+   * The two 2×2 information grids were built at different
+   * times and had subtly different value sizes.
+   */
+
+  .wrapped-journey
+  .mobile-history-sticker
+  > strong,
+
+  .wrapped-journey
+  .mobile-heist-stat
+  > strong {
+    font-size:
+      clamp(
+        1.45rem,
+        6.5vw,
+        1.9rem
+      );
+
+    line-height: 1;
+
+    letter-spacing:
+      -0.045em;
+  }
+
+
+  .wrapped-journey
+  .mobile-history-sticker
+  small {
+    font-size: 0.72rem;
+  }
+
+
+  /*
+   * Keep compact runner-up cards visually related,
+   * but slightly tighter than the main stickers.
+   */
+
+  .wrapped-journey
+  .mobile-favourites-runner {
+    border-radius: 18px;
+
+    background:
+      var(--wrapped-yellow);
+
+    color:
+      var(--wrapped-ink);
+  }
+
+
+  /* -------------------------------------------------------
+     HISTORY SPACING
+     ------------------------------------------------------- */
+
+  .wrapped-journey
+  .mobile-history-first {
+    margin-bottom: 0.85rem;
+  }
+
+
+  /* -------------------------------------------------------
+     FAVOURITES SPACING
+     ------------------------------------------------------- */
+
+  .wrapped-journey
+  .mobile-favourites-selector {
+    margin-bottom: 0.85rem;
+  }
+
+
+  .wrapped-journey
+  .mobile-favourites-winner {
+    margin-bottom: 0.55rem;
+  }
+
+
+  /* -------------------------------------------------------
+     TABULAR NUMBERS
+
+     Makes counts and money sit more steadily as values
+     change or are compared.
+     ------------------------------------------------------- */
+
+  .wrapped-journey
+  :is(
+    .mobile-history-sticker strong,
+    .mobile-heist-reveal strong,
+    .mobile-heist-stat strong,
+    .mobile-heist-product-price,
+    .mobile-heist-price-summary strong,
+    .streak-reveal strong,
+    .race-count,
+    .race-date,
+    .mobile-favourites-winner-stats strong,
+    .mobile-favourites-runner-stat strong
+  ) {
+    font-variant-numeric:
+      tabular-nums;
+  }
+
+
+  /* -------------------------------------------------------
+     BEAT THE MEAL DEAL NAVIGATION
+
+     This used to be centred and in-flow.
+     It now occupies exactly the same bottom-right position
+     as every other journey transition.
+     ------------------------------------------------------- */
+
+  .wrapped-journey
+  .mobile-heist-navigation {
+    position: fixed;
+
+    right:
+      var(--wrapped-next-right);
+
+    bottom:
+      var(--wrapped-next-bottom);
+
+    z-index: 100;
+
+    margin: 0;
+
+    padding: 0;
+
+    text-align: right;
+  }
+}
+
+
+/* =========================================================
    JOURNEY NEXT BUTTON
------------------------ */
+   ========================================================= */
+
+.wrapped-journey-next,
+.wrapped-journey
+.mobile-heist-navigation
+button {
+  min-height: 44px;
+
+  padding:
+    0.78rem
+    1.05rem;
+
+  display: inline-flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 0.45rem;
+
+  border: 0;
+
+  border-radius: 999px;
+
+  background: #ffd900;
+
+  color: #111;
+
+  box-shadow:
+    0 4px 16px
+    rgba(
+      0,
+      0,
+      0,
+      0.14
+    );
+
+  font: inherit;
+
+  font-size: 0.82rem;
+
+  font-weight: 900;
+
+  line-height: 1;
+
+  cursor: pointer;
+
+  transition:
+    transform
+    120ms ease;
+}
+
 
 .wrapped-journey-next {
   position: fixed;
@@ -32,57 +706,39 @@
     );
 
   z-index: 100;
-
-  padding:
-    0.75rem
-    1.1rem;
-
-  display: inline-flex;
-
-  align-items: center;
-
-  gap: 0.45rem;
-
-  border: 0;
-
-  border-radius: 999px;
-
-  background: #ffd900;
-  color: #111;
-
-  box-shadow:
-    0 4px 16px
-    rgba(
-      0,
-      0,
-      0,
-      0.14
-    );
-
-  font: inherit;
-  font-size: 0.8rem;
-  font-weight: 900;
-
-  cursor: pointer;
 }
+
 
 .wrapped-journey-next span {
   font-size: 1rem;
+
   font-weight: 900;
+
+  line-height: 1;
 }
 
-/* -----------------------
+
+.wrapped-journey-next:active,
+.wrapped-journey
+.mobile-heist-navigation
+button:active {
+  transform:
+    scale(0.98);
+}
+
+
+/* =========================================================
    RACE REVEAL
 
-   Don't allow the user to
-   proceed to the finale until
-   the race has finished.
------------------------ */
+   Do not allow the finale button to appear until the
+   finished race has revealed its Replay control.
+   ========================================================= */
 
 .wrapped-race-next {
   display: none;
 }
 
+
 .wrapped-race-step:has(
   .race-replay
 )
@@ -90,21 +746,23 @@
   display: inline-flex;
 }
 
+
 /*
- * Give the finished race a little
- * breathing room for the journey
- * button.
+ * Once the race finishes, make space above the fixed
+ * finale button for Replay.
  */
+
 .wrapped-race-step:has(
   .race-replay
 )
 .race-footer {
-  padding-bottom: 3.8rem;
+  padding-bottom: 4rem;
 }
 
-/* -----------------------
+
+/* =========================================================
    MISSING SAVINGS DATA
------------------------ */
+   ========================================================= */
 
 .wrapped-unavailable {
   min-height: 100dvh;
@@ -122,10 +780,12 @@
   justify-content: center;
 
   background: #00539f;
+
   color: white;
 
   text-align: center;
 }
+
 
 .wrapped-unavailable-kicker {
   margin:
@@ -133,12 +793,14 @@
 
   color: #ffd900;
 
-  font-size: 0.7rem;
+  font-size: 0.65rem;
+
   font-weight: 900;
 
   letter-spacing:
     0.15em;
 }
+
 
 .wrapped-unavailable h1 {
   margin: 0;
@@ -155,6 +817,7 @@
   letter-spacing:
     -0.05em;
 }
+
 
 .wrapped-unavailable
 > p:last-of-type {
@@ -175,26 +838,42 @@
   line-height: 1.45;
 }
 
+
 .wrapped-unavailable button {
   padding:
-    0.8rem
-    1.2rem;
+    0.78rem
+    1.05rem;
 
   border: 0;
 
   border-radius: 999px;
 
   background: #ffd900;
+
   color: #111;
 
   font: inherit;
+
+  font-size: 0.82rem;
+
   font-weight: 900;
 
   cursor: pointer;
 }
 
+
+/* =========================================================
+   DESKTOP
+
+   Wrapped is deliberately the authored mobile experience.
+   The detailed desktop dashboards remain completely
+   separate and untouched.
+   ========================================================= */
+
 @media (min-width: 701px) {
-  .mobile-wrapped-journey {
+  .mobile-wrapped-journey,
+  .wrapped-journey,
+  .wrapped-unavailable {
     display: none;
   }
 }

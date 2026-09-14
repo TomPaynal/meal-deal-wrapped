@@ -143,21 +143,53 @@ h1 span {
    MOBILE WRAPPED ENTRY
 ------------------------- */
 
-.mobile-wrapped-button {
-  display: none;
-}
-
 @media (max-width: 700px) {
   html,
   body,
   #root {
     min-height: 100dvh;
-
     background: #00539f;
+  }
+
+  .app {
+    color: white;
+  }
+
+  .eyebrow {
+    color: #ffd900;
+  }
+
+  h1 {
+    color: white;
+  }
+
+  h1 span {
+    color: #ee1c2e;
+  }
+
+  .intro {
+    color: rgba(255, 255, 255, 0.82);
+  }
+
+  .privacy,
+  .selected-file {
+    color: rgba(255, 255, 255, 0.7);
   }
 
   .mobile-wrapped-button {
     display: inline-flex;
+
+    background: #ffd900;
+    color: #111;
+
+    box-shadow: none;
+  }
+
+  .mobile-wrapped-button:hover {
+    background: #ffd900;
+    color: #111;
+
+    transform: translateY(-2px);
   }
 
   .desktop-feature-button {
